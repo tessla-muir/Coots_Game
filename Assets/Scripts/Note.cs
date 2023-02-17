@@ -12,7 +12,9 @@ public class Note : MonoBehaviour
         if (Input.GetKeyDown(keyToPress) && canBePressed)
         {
             gameObject.SetActive(false);
+            GameManager.instance.NoteHit();
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -25,9 +27,11 @@ public class Note : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other) 
     {
-        if (other.tag == "Box")
+        if (other.tag == "Box" && gameObject.activeSelf)
         {
             canBePressed = false;
+            GameManager.instance.NoteMissed();
+            gameObject.SetActive(false);
         }
     }
 
