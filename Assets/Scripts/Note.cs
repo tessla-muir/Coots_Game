@@ -31,8 +31,6 @@ public class Note : MonoBehaviour
         {
             canBePressed = false;
             GameManager.instance.NoteMissed();
-            gameObject.SetActive(false);
         }
     }
-
 }

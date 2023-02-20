@@ -5,18 +5,20 @@ using UnityEngine;
 public class BeatScroller : MonoBehaviour
 {
     [SerializeField] float beatTempo;
-    private bool hasStarted;
+    private bool hasStarted;  
+    private float dspSongTime;  
 
     void Start()
     {
-        beatTempo = beatTempo / 60f;
+        beatTempo = 60f / beatTempo;  
     }
 
     void Update()
     {
         if (hasStarted)
         {
-            transform.position -= new Vector3(beatTempo * Time.deltaTime, 0f, 0f);
+            dspSongTime = GameManager.instance.dspSongTime;
+            transform.position = new Vector3(-1 * ((float) AudioSettings.dspTime - dspSongTime), 0f, 0f);
         }
     }
 

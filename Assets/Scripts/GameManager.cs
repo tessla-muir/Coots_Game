@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource music;
     [SerializeField] BeatScroller bs;
     bool startPlaying;
+    public float dspSongTime;
 
     public static GameManager instance;
 
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
             startPlaying = true;
             bs.SetHasStarted(true);
 
+            dspSongTime = (float) AudioSettings.dspTime;
             music.Play();
         }
     }
