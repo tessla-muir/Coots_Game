@@ -4,14 +4,14 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class BongoGameManager : MonoBehaviour
 {
     [SerializeField] AudioSource music;
     [SerializeField] BeatScroller bs;
     bool startPlaying;
     public float dspSongTime;
 
-    public static GameManager instance;
+    public static BongoGameManager instance;
 
     [SerializeField] int scorePerNote;
     [SerializeField] TextMeshProUGUI scoreText;

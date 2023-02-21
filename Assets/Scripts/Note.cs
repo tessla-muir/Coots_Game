@@ -12,7 +12,7 @@ public class Note : MonoBehaviour
         if (Input.GetKeyDown(keyToPress) && canBePressed)
         {
             gameObject.SetActive(false);
-            GameManager.instance.NoteHit();
+            BongoGameManager.instance.NoteHit();
         }
 
     }
@@ -30,7 +30,7 @@ public class Note : MonoBehaviour
         if (other.tag == "Box" && gameObject.activeSelf)
         {
             canBePressed = false;
-            GameManager.instance.NoteMissed();
+            BongoGameManager.instance.NoteMissed();
         }
     }
 }

@@ -17,7 +17,7 @@ public class BeatScroller : MonoBehaviour
     {
         if (hasStarted)
         {
-            dspSongTime = GameManager.instance.dspSongTime;
+            dspSongTime = BongoGameManager.instance.dspSongTime;
             transform.position = new Vector3(-1 * ((float) AudioSettings.dspTime - dspSongTime), transform.position.y, 0f);
         }
     }
