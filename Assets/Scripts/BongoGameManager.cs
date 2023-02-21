@@ -5,21 +5,22 @@ using UnityEngine.UI;
 
 public class BongoGameManager : MonoBehaviour
 {
-    [SerializeField] AudioSource music;
-    [SerializeField] BeatScroller bs;
-    bool startPlaying;
-    public float dspSongTime;
-
     public static BongoGameManager instance;
 
-    [SerializeField] int scorePerNote;
-    int currentScore = 0;
+    bool startPlaying;
+    public float dspSongTime;
+    [SerializeField] AudioSource music;
+    [SerializeField] BeatScroller bs;
+
+     int currentScore = 0;
+    int scorePerNote = 100;
+    int scorePerGreatNote = 125;
+    int scorePerPerfectNote = 150;
 
     int currentMulti = 1;
     int multiTracker;
     int[] multiThresholds = { 4, 8, 16 };
 
-    // Bongo UI
     BongoUI bongoUI;
 
     void Start()
@@ -40,7 +41,7 @@ public class BongoGameManager : MonoBehaviour
         }
     }
 
-    public void NoteHit()
+    private void NoteHit()
     {
         // Adjust multiplier
         if (currentMulti - 1 < multiThresholds.Length)
@@ -58,9 +59,26 @@ public class BongoGameManager : MonoBehaviour
             }
         }
 
-        // Adjust score
-        currentScore += scorePerNote * currentMulti;
+        // Adjust UI
         bongoUI.UpdateScore(currentScore);
+    }
+
+    public void NoteNormalHit()
+    {
+        currentScore += scorePerNote * currentMulti;
+        NoteHit();
+    }
+
+    public void NoteGreatHit()
+    {
+        currentScore += scorePerGreatNote * currentMulti;
+        NoteHit();
+    }
+
+    public void NotePerfectHit()
+    {
+        currentScore += scorePerPerfectNote * currentMulti;
+        NoteHit();
     }
 
     public void NoteMissed()

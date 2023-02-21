@@ -256,7 +256,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 60, y: 50}
+  m_Size: {x: 50, y: 50}
   m_EdgeRadius: 0
 --- !u!114 &140010827
 MonoBehaviour:
@@ -809,7 +809,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 60, y: 50}
+  m_Size: {x: 50, y: 50}
   m_EdgeRadius: 0
 --- !u!50 &373686658
 Rigidbody2D:
@@ -1247,7 +1247,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 60, y: 50}
+  m_Size: {x: 50, y: 50}
   m_EdgeRadius: 0
 --- !u!50 &593527942
 Rigidbody2D:
@@ -3322,7 +3322,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 60, y: 50}
+  m_Size: {x: 50, y: 50}
   m_EdgeRadius: 0
 --- !u!50 &1616714138
 Rigidbody2D:
@@ -4112,10 +4112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fbbcab70a6894d4caf46bcb39ee7bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dspSongTime: 0
   music: {fileID: 2086735034}
   bs: {fileID: 2049925143}
-  dspSongTime: 0
-  scorePerNote: 100
 --- !u!4 &2086735036
 Transform:
   m_ObjectHideFlags: 0
