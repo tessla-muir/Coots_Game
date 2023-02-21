@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 
 public class BongoGameManager : MonoBehaviour
@@ -14,10 +13,8 @@ public class BongoGameManager : MonoBehaviour
     public static BongoGameManager instance;
 
     [SerializeField] int scorePerNote;
-    [SerializeField] TextMeshProUGUI scoreText;
     int currentScore = 0;
 
-    [SerializeField] TextMeshProUGUI multiText;
     int currentMulti = 1;
     int multiTracker;
     int[] multiThresholds = { 4, 8, 16 };
@@ -53,7 +50,7 @@ public class BongoGameManager : MonoBehaviour
             {
                 multiTracker = 0;
                 currentMulti++;
-                multiText.text = "Multiplier: x" + currentMulti;
+                bongoUI.UpdateMulti(currentMulti);
 
                 // Update BongoCat
                 if (currentMulti == 2) bongoUI.SetCatJam(true, false);
@@ -63,7 +60,7 @@ public class BongoGameManager : MonoBehaviour
 
         // Adjust score
         currentScore += scorePerNote * currentMulti;
-        scoreText.text = "Score: " + currentScore;
+        bongoUI.UpdateScore(currentScore);
     }
 
     public void NoteMissed()
@@ -73,7 +70,7 @@ public class BongoGameManager : MonoBehaviour
         // Adjust multiplier
         currentMulti = 1;
         multiTracker = 0;
-        multiText.text = "Multiplier: x" + currentMulti;
+        bongoUI.UpdateMulti(currentMulti);
 
         // Update UI
         bongoUI.CootsMiss();

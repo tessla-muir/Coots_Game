@@ -2,16 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BongoUI : MonoBehaviour
 {
+    // Sprite
     Image coots;
-    GameObject catJam1;
-    GameObject catJam2;
     [SerializeField] Sprite cootsNormal;
     [SerializeField] Sprite cootsMiss;
     [SerializeField] Sprite cootsRight;
     [SerializeField] Sprite cootsLeft;
+
+    // Cat Jam
+    GameObject catJam1;
+    GameObject catJam2;
+
+    // Text
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI multiText;
 
     void Start()
     {
@@ -72,5 +80,15 @@ public class BongoUI : MonoBehaviour
     {
         yield return new WaitForSeconds(.3f);
         if (coots.sprite != cootsNormal) coots.sprite = cootsNormal;
+    }
+    
+    public void UpdateScore(int val)
+    {
+        scoreText.text = "Score: " + val;
+    }
+
+    public void UpdateMulti(int val)
+    {
+        multiText.text = "Multiplier: x" + val;
     }
 }

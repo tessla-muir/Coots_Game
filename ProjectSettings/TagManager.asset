@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Rhythm Box
   - Box
+  - Bar
   layers:
   - Default
   - TransparentFX
