@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ButtonController : MonoBehaviour
 {
     private Image image;
+    BeatScroller bs;
     [SerializeField] KeyCode keyToPress;
     [SerializeField] Color defaultColor;
     [SerializeField] Color pressedColor;
@@ -14,19 +15,23 @@ public class ButtonController : MonoBehaviour
     void Start()
     {
         image = GetComponent<Image>();
+        bs = GameObject.FindObjectOfType<BeatScroller>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(keyToPress))
+        if (bs.GetHasStarted())
         {
-            image.color = pressedColor;
-        }
+            if (Input.GetKeyDown(keyToPress))
+            {
+                image.color = pressedColor;
+            }
 
-        if (Input.GetKeyUp(keyToPress))
-        {
-            image.color = defaultColor;
+            if (Input.GetKeyUp(keyToPress))
+            {
+                image.color = defaultColor;
+            }
         }
     }
 }

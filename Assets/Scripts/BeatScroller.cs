@@ -26,4 +26,9 @@ public class BeatScroller : MonoBehaviour
     {
         hasStarted = val;
     }
+
+    public bool GetHasStarted()
+    {
+        return hasStarted;
+    }
 }

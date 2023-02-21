@@ -8,7 +8,6 @@ public class Note : MonoBehaviour
     bool canBePressed = false;
     float buttonX;
     
-    
     private void Start() 
     {
         buttonX = GameObject.FindWithTag("Box").transform.position.x;
@@ -21,7 +20,6 @@ public class Note : MonoBehaviour
             // Make note inactive
             gameObject.SetActive(false);
 
-            // Debug.Log(Mathf.Abs(buttonX - transform.position.x));
             // Determine quality of note
             if (Mathf.Abs(buttonX - transform.position.x) > 0.055)
             {

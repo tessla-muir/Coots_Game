@@ -7,26 +7,37 @@ public class BongoGameManager : MonoBehaviour
 {
     public static BongoGameManager instance;
 
+    // Music
     bool startPlaying;
     public float dspSongTime;
     [SerializeField] AudioSource music;
     [SerializeField] BeatScroller bs;
 
-     int currentScore = 0;
+    // Score
+    int currentScore = 0;
     int scorePerNote = 100;
     int scorePerGreatNote = 125;
     int scorePerPerfectNote = 150;
+    public int perfectCount = 0;
+    public int greatCount = 0;
+    public int normalCount = 0;
+    public int missedCount = 0;
+    
 
+    // Mutliplier
     int currentMulti = 1;
     int multiTracker;
     int[] multiThresholds = { 4, 8, 16 };
 
+    // UI
     BongoUI bongoUI;
+    EndScreenUI endScreenUI;
 
     void Start()
     {
         instance = this;
         bongoUI = GameObject.Find("Bongo UI").GetComponent<BongoUI>();
+        endScreenUI = GameObject.Find("Player UI").GetComponent<EndScreenUI>();
     }
 
     void Update()
@@ -38,6 +49,12 @@ public class BongoGameManager : MonoBehaviour
 
             dspSongTime = (float) AudioSettings.dspTime;
             music.Play();
+        }
+
+        if (startPlaying && !music.isPlaying)
+        {
+            // End screen
+            endScreenUI.UpdateEndScreen();
         }
     }
 
@@ -66,25 +83,28 @@ public class BongoGameManager : MonoBehaviour
 
     public void NoteNormalHit()
     {
+        normalCount++;
         currentScore += scorePerNote * currentMulti;
         NoteHit();
     }
 
     public void NoteGreatHit()
     {
+        greatCount++;
         currentScore += scorePerGreatNote * currentMulti;
         NoteHit();
     }
 
     public void NotePerfectHit()
     {
+        perfectCount++;
         currentScore += scorePerPerfectNote * currentMulti;
         NoteHit();
     }
 
     public void NoteMissed()
     {
-        Debug.Log("Missed!");
+        missedCount++;
 
         // Adjust multiplier
         currentMulti = 1;
@@ -94,5 +114,15 @@ public class BongoGameManager : MonoBehaviour
         // Update UI
         bongoUI.CootsMiss();
         bongoUI.SetCatJam(false, false);
+    }
+
+    public int GetTotalNotes()
+    {
+        return perfectCount + greatCount + normalCount + missedCount;
+    }
+
+    public int GetCurrentScore()
+    {
+        return currentScore;
     }
 }
