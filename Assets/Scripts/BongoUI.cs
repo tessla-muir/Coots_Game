@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class BongoUI : MonoBehaviour
 {
     Image coots;
+    GameObject catJam1;
+    GameObject catJam2;
     [SerializeField] Sprite cootsNormal;
     [SerializeField] Sprite cootsMiss;
     [SerializeField] Sprite cootsRight;
@@ -14,6 +16,12 @@ public class BongoUI : MonoBehaviour
     void Start()
     {
         coots = GameObject.Find("Coots").GetComponent<Image>();
+
+        // Find & Set Cat Jams to Inactive
+        catJam1 = GameObject.Find("CatJam1");
+        catJam2 = GameObject.Find("CatJam2");
+        catJam1.SetActive(false);
+        catJam2.SetActive(false);
     }
 
     
@@ -43,6 +51,17 @@ public class BongoUI : MonoBehaviour
         StartCoroutine(MissWait());
     }
 
+    public void SetCatJam(bool val, bool val2)
+    {
+        // Set false first to sync animations
+        catJam1.SetActive(false);
+        catJam2.SetActive(false);
+
+        // Set values
+        catJam1.SetActive(val);
+        catJam2.SetActive(val2);
+    }
+
     IEnumerator BongoWait()
     {
         yield return new WaitForSeconds(.1f);
@@ -51,7 +70,7 @@ public class BongoUI : MonoBehaviour
 
     IEnumerator MissWait()
     {
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(.3f);
         if (coots.sprite != cootsNormal) coots.sprite = cootsNormal;
     }
 }

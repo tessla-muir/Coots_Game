@@ -45,8 +45,6 @@ public class BongoGameManager : MonoBehaviour
 
     public void NoteHit()
     {
-        Debug.Log("Hit!");
-
         // Adjust multiplier
         if (currentMulti - 1 < multiThresholds.Length)
         {
@@ -56,6 +54,10 @@ public class BongoGameManager : MonoBehaviour
                 multiTracker = 0;
                 currentMulti++;
                 multiText.text = "Multiplier: x" + currentMulti;
+
+                // Update BongoCat
+                if (currentMulti == 2) bongoUI.SetCatJam(true, false);
+                if (currentMulti == 3) bongoUI.SetCatJam(true, true);
             }
         }
 
@@ -75,5 +77,6 @@ public class BongoGameManager : MonoBehaviour
 
         // Update UI
         bongoUI.CootsMiss();
+        bongoUI.SetCatJam(false, false);
     }
 }
