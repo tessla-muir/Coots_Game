@@ -40,11 +40,18 @@ public class BongoUI : MonoBehaviour
     public void CootsMiss()
     {
         coots.sprite = cootsMiss;
+        StartCoroutine(MissWait());
     }
 
     IEnumerator BongoWait()
     {
         yield return new WaitForSeconds(.1f);
-        coots.sprite = cootsNormal;
+        if (coots.sprite != cootsNormal) coots.sprite = cootsNormal;
+    }
+
+    IEnumerator MissWait()
+    {
+        yield return new WaitForSeconds(.25f);
+        if (coots.sprite != cootsNormal) coots.sprite = cootsNormal;
     }
 }
