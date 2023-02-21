@@ -8,6 +8,9 @@ public class BongoUI : MonoBehaviour
 {
     // Sprite
     Image coots;
+    Image enemy;
+    [SerializeField] Sprite enemyNormal;
+    [SerializeField] Sprite enemyOnHit;
     [SerializeField] Sprite cootsNormal;
     [SerializeField] Sprite cootsMiss;
     [SerializeField] Sprite cootsRight;
@@ -24,6 +27,7 @@ public class BongoUI : MonoBehaviour
     void Start()
     {
         coots = GameObject.Find("Coots").GetComponent<Image>();
+        enemy = GameObject.Find("Enemy").GetComponent<Image>();
 
         // Find & Set Cat Jams to Inactive
         catJam1 = GameObject.Find("CatJam1");
@@ -59,6 +63,12 @@ public class BongoUI : MonoBehaviour
         StartCoroutine(MissWait());
     }
 
+    public void EnemyHit()
+    {
+        enemy.sprite = enemyOnHit;
+        StartCoroutine(HitWait());
+    }
+
     public void SetCatJam(bool val, bool val2)
     {
         // Set false first to sync animations
@@ -78,8 +88,14 @@ public class BongoUI : MonoBehaviour
 
     IEnumerator MissWait()
     {
-        yield return new WaitForSeconds(.3f);
-        if (coots.sprite != cootsNormal) coots.sprite = cootsNormal;
+        yield return new WaitForSeconds(.5f);
+        coots.sprite = cootsNormal;
+    }
+
+    IEnumerator HitWait()
+    {
+        yield return new WaitForSeconds(.4f);
+        enemy.sprite = enemyNormal;
     }
     
     public void UpdateScore(int val)

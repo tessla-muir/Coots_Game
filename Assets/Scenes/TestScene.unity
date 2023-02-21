@@ -2795,10 +2795,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376b561f2d59c9d4ca43a85f5078e6fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyNormal: {fileID: 0}
+  enemyOnHit: {fileID: 0}
   cootsNormal: {fileID: 21300000, guid: 3038516923a5ed040a8f55980f153cea, type: 3}
   cootsMiss: {fileID: 21300000, guid: ae0cbd8ae29404947a0e12070a76ad32, type: 3}
   cootsRight: {fileID: 21300000, guid: 6306c5b70dda19645aadb989f93904a2, type: 3}
   cootsLeft: {fileID: 21300000, guid: ee5fa191effc9014499f44c2426844ea, type: 3}
+  scoreText: {fileID: 0}
+  multiText: {fileID: 0}
 --- !u!1 &1452830407
 GameObject:
   m_ObjectHideFlags: 0
@@ -4058,12 +4062,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fbbcab70a6894d4caf46bcb39ee7bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dspSongTime: 0
   music: {fileID: 2086735034}
   bs: {fileID: 2049925143}
-  dspSongTime: 0
-  scorePerNote: 100
-  scoreText: {fileID: 1091656786}
-  multiText: {fileID: 1698531089}
 --- !u!4 &2086735036
 Transform:
   m_ObjectHideFlags: 0

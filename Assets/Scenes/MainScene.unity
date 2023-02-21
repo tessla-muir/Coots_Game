@@ -2835,6 +2835,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376b561f2d59c9d4ca43a85f5078e6fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyNormal: {fileID: 21300000, guid: 61228df0e51d35e4ca8662af792eb9e6, type: 3}
+  enemyOnHit: {fileID: 21300000, guid: cf5b73e4e5070684480dc227d8744e63, type: 3}
   cootsNormal: {fileID: 21300000, guid: 3038516923a5ed040a8f55980f153cea, type: 3}
   cootsMiss: {fileID: 21300000, guid: ae0cbd8ae29404947a0e12070a76ad32, type: 3}
   cootsRight: {fileID: 21300000, guid: 6306c5b70dda19645aadb989f93904a2, type: 3}

@@ -61,6 +61,7 @@ public class BongoGameManager : MonoBehaviour
 
         // Adjust UI
         bongoUI.UpdateScore(currentScore);
+        bongoUI.EnemyHit();
     }
 
     public void NoteNormalHit()
