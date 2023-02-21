@@ -36,8 +36,8 @@ public class BongoGameManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        bongoUI = GameObject.Find("Bongo UI").GetComponent<BongoUI>();
-        endScreenUI = GameObject.Find("Player UI").GetComponent<EndScreenUI>();
+        bongoUI = GameObject.FindObjectOfType<BongoUI>();;
+        endScreenUI = GameObject.FindObjectOfType<EndScreenUI>();;
     }
 
     void Update()
