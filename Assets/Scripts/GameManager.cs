@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,9 +22,13 @@ public class GameManager : MonoBehaviour
     int multiTracker;
     int[] multiThresholds = { 4, 8, 16 };
 
+    // Bongo UI
+    BongoUI bongoUI;
+
     void Start()
     {
         instance = this;
+        bongoUI = GameObject.Find("Bongo UI").GetComponent<BongoUI>();
     }
 
     void Update()
@@ -67,5 +72,8 @@ public class GameManager : MonoBehaviour
         currentMulti = 1;
         multiTracker = 0;
         multiText.text = "Multiplier: x" + currentMulti;
+
+        // Update UI
+        bongoUI.CootsMiss();
     }
 }

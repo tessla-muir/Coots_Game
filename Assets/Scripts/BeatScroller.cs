@@ -18,7 +18,7 @@ public class BeatScroller : MonoBehaviour
         if (hasStarted)
         {
             dspSongTime = GameManager.instance.dspSongTime;
-            transform.position = new Vector3(-1 * ((float) AudioSettings.dspTime - dspSongTime), 0f, 0f);
+            transform.position = new Vector3(-1 * ((float) AudioSettings.dspTime - dspSongTime), transform.position.y, 0f);
         }
     }
 
