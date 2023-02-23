@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     
-    int level = 0;
     GameObject bongoUI;
     GameObject bongoGameManager;
 
@@ -21,14 +20,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // Grabs UI needed
-        if (Input.GetKeyDown("space")) 
-        {
-            if (level == 0) 
-            {
-                BongoGameManager.instance.gameObject.SetActive(true);
-                bongoUI.SetActive(true);
-            }
-        }
+    }
+
+    public void Quit()
+    {
+        Debug.Log("Exiting...");
+        Application.Quit();
+    }
+
+    public void StartBongoGame()
+    {
+        BongoGameManager.instance.gameObject.SetActive(true);
+        bongoUI.SetActive(true);
     }
 }
