@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class BongoUI : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class BongoUI : MonoBehaviour
     [SerializeField] Sprite cootsMiss;
     [SerializeField] Sprite cootsRight;
     [SerializeField] Sprite cootsLeft;
+    [SerializeField] Sprite cootsBoth;
 
     // Cat Jam
     GameObject catJam1;
@@ -42,20 +44,29 @@ public class BongoUI : MonoBehaviour
 
     void Update()
     {
-        coots = GameObject.Find("Coots").GetComponent<Image>();
+        bool left = false;
+        bool right = false;
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.UpArrow)) left = true;
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow)) right = true;
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKey(KeyCode.UpArrow))
+        UpdateCootsSprite(left, right);
+    }
+
+    private void UpdateCootsSprite(bool left, bool right)
+    {
+        if (left && right)
+        {
+            coots.sprite = cootsBoth;
+            StartCoroutine(BongoWait());
+        }
+        else if (left)
         {
             coots.sprite = cootsLeft;
+            StartCoroutine(BongoWait());
         }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow))
+        else if (right)
         {
             coots.sprite = cootsRight;
-        }
-
-        if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
-        {
             StartCoroutine(BongoWait());
         }
     }
@@ -86,7 +97,7 @@ public class BongoUI : MonoBehaviour
     IEnumerator BongoWait()
     {
         yield return new WaitForSeconds(.1f);
-        if (coots.sprite != cootsNormal) coots.sprite = cootsNormal;
+        coots.sprite = cootsNormal;
     }
 
     IEnumerator MissWait()
@@ -100,7 +111,7 @@ public class BongoUI : MonoBehaviour
         yield return new WaitForSeconds(.4f);
         enemy.sprite = enemyNormal;
     }
-    
+
     public void UpdateScore(int val)
     {
         scoreText.text = "Score: " + val;

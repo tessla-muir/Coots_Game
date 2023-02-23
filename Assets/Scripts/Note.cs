@@ -23,17 +23,14 @@ public class Note : MonoBehaviour
             // Determine quality of note
             if (Mathf.Abs(buttonX - transform.position.x) > 0.055)
             {
-                Debug.Log("Normal");
                 BongoGameManager.instance.NoteNormalHit();
             }
             else if (Mathf.Abs(buttonX - transform.position.x) > 0.03)
             {
-                Debug.Log("Great");
                 BongoGameManager.instance.NoteGreatHit();
             }
             else
             {
-                Debug.Log("Perfect");
                 BongoGameManager.instance.NotePerfectHit();
             }
         }

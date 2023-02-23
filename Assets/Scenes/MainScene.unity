@@ -4479,6 +4479,7 @@ MonoBehaviour:
   cootsMiss: {fileID: 21300000, guid: ae0cbd8ae29404947a0e12070a76ad32, type: 3}
   cootsRight: {fileID: 21300000, guid: 6306c5b70dda19645aadb989f93904a2, type: 3}
   cootsLeft: {fileID: 21300000, guid: ee5fa191effc9014499f44c2426844ea, type: 3}
+  cootsBoth: {fileID: 21300000, guid: 028af7274a3bfda4fb6d8ff3861329fa, type: 3}
   scoreText: {fileID: 1091656786}
   multiText: {fileID: 1698531089}
   endScreen: {fileID: 1451461891}
