@@ -15,7 +15,7 @@ public class Note : MonoBehaviour
 
     private void Update() 
     {
-        if (Input.GetKeyDown(keyToPress) && canBePressed)
+        if (Input.GetKeyDown(keyToPress) && canBePressed && !BongoGameManager.instance.GetPaused())
         {
             // Make note inactive
             gameObject.SetActive(false);

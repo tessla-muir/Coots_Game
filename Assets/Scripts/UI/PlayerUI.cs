@@ -59,4 +59,9 @@ public class PlayerUI : MonoBehaviour
     {
         pauseScreen.SetActive(val);
     }
+
+    public void SetSettingsMenu(bool val)
+    {
+        settingsScreen.SetActive(val);
+    }
 }

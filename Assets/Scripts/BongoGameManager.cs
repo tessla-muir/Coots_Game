@@ -70,7 +70,9 @@ public class BongoGameManager : MonoBehaviour
         // In pause menu -- can press escape to leave or the button
         else if (Input.GetKeyDown(KeyCode.Escape) && paused)
         {
+            // Make sure all menus close then
             playerUI.SetPauseMenu(false);
+            playerUI.SetSettingsMenu(false);
             Resume();
         }
 
@@ -169,6 +171,11 @@ public class BongoGameManager : MonoBehaviour
     public float GetPauseTime()
     {
         return totalPauseTime;
+    }
+
+    public bool GetPaused()
+    {
+        return paused;
     }
 
     public int GetTotalNotes()

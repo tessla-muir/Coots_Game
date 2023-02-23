@@ -45,7 +45,7 @@ public class BongoUI : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.UpArrow)) left = true;
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow)) right = true;
 
-        UpdateCootsSprite(left, right);
+        if (!BongoGameManager.instance.GetPaused()) UpdateCootsSprite(left, right);
     }
 
     private void UpdateCootsSprite(bool left, bool right)
