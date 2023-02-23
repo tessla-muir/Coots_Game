@@ -5,30 +5,28 @@ using UnityEngine;
 public class BeatScroller : MonoBehaviour
 {
     [SerializeField] float beatTempo;
-    private bool hasStarted;  
-    private float dspSongTime;  
+    private bool canMove;  
 
     void Start()
     {
-        beatTempo = 60f / beatTempo;  
+        beatTempo = 60f / beatTempo;
     }
 
     void Update()
     {
-        if (hasStarted)
+        if (canMove)
         {
-            dspSongTime = BongoGameManager.instance.dspSongTime;
-            transform.position = new Vector3(-1 * ((float) AudioSettings.dspTime - dspSongTime), transform.position.y, 0f);
+            transform.position = new Vector3(-1 * (((float) AudioSettings.dspTime - BongoGameManager.instance.GetDpsTime()) - BongoGameManager.instance.GetPauseTime()), transform.position.y, 0f);
         }
     }
 
-    public void SetHasStarted(bool val)
+    public void SetCanMove(bool val)
     {
-        hasStarted = val;
+        canMove = val;
     }
 
-    public bool GetHasStarted()
+    public bool GetCanMove()
     {
-        return hasStarted;
+        return canMove;
     }
 }

@@ -9,6 +9,7 @@ public class PlayerUI : MonoBehaviour
     BongoUI bongoUI;
     GameObject endScreen;
     GameObject settingsScreen;
+    GameObject pauseScreen;
 
     [Header("End Screen")]
     [SerializeField] TextMeshProUGUI outcomeText;
@@ -30,9 +31,13 @@ public class PlayerUI : MonoBehaviour
         // Set settings screen to inactive
         settingsScreen = GameObject.Find("Settings UI");
         settingsScreen.SetActive(false);
+
+        // Set pause screen to inactive
+        pauseScreen = GameObject.Find("Pause Menu UI");
+        pauseScreen.SetActive(false);
     }
 
-    public void UpdateEndScreen()
+    public void DisplayEndScreen()
     {   
         endScreen.SetActive(true);
 
@@ -48,5 +53,10 @@ public class PlayerUI : MonoBehaviour
 
         // Update enemy
         enemyImage.sprite = bongoUI.enemyOnHit;
+    }
+
+    public void SetPauseMenu(bool val)
+    {
+        pauseScreen.SetActive(val);
     }
 }

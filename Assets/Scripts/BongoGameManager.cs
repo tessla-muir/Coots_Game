@@ -8,9 +8,13 @@ public class BongoGameManager : MonoBehaviour
     public static BongoGameManager instance;
 
     // Music
-    bool startPlaying;
-    bool musicStopped;
-    public float dspSongTime;
+    bool startPlaying = false;
+    bool musicEnded = false;
+    bool paused = false;
+    float dspSongTime;
+    float startPauseTime = 0;
+    float endPauseTime = 0;
+    float totalPauseTime = 0;
     [SerializeField] AudioSource music;
     [SerializeField] BeatScroller bs;
 
@@ -47,20 +51,56 @@ public class BongoGameManager : MonoBehaviour
 
     void Update()
     {
+        // Start game by pressing space
         if (!startPlaying && Input.GetKeyDown(KeyCode.Space))
         {
             startPlaying = true;
-            bs.SetHasStarted(true);
+            bs.SetCanMove(true);
 
             dspSongTime = (float) AudioSettings.dspTime;
             music.Play();
         }
 
-        if (startPlaying && !music.isPlaying && !musicStopped)
+        // Allows player to pause
+        if (Input.GetKeyDown(KeyCode.Escape) && !paused)
         {
-            musicStopped = true;
-            playerUI.UpdateEndScreen();
+            playerUI.SetPauseMenu(true);
+            Pause();
         }
+        // In pause menu -- can press escape to leave or the button
+        else if (Input.GetKeyDown(KeyCode.Escape) && paused)
+        {
+            playerUI.SetPauseMenu(false);
+            Resume();
+        }
+
+        // Shows end screen when done
+        if (!paused && startPlaying && !music.isPlaying && !musicEnded)
+        {
+            musicEnded = true;
+            playerUI.DisplayEndScreen();
+        }
+    }
+
+    public void Pause()
+    {
+        paused = true;
+        if (!startPlaying) return;
+        startPauseTime = (float) AudioSettings.dspTime;
+        music.Pause();
+        bs.SetCanMove(false);
+    }
+
+    public void Resume()
+    {
+        paused = false;
+        if (!startPlaying) return;
+        endPauseTime = (float) AudioSettings.dspTime;
+        music.Play();
+        bs.SetCanMove(true);
+
+        // Total pause time -- accounts for multiple paused intervals
+        totalPauseTime += endPauseTime - startPauseTime;
     }
 
     private void NoteHit()
@@ -119,6 +159,16 @@ public class BongoGameManager : MonoBehaviour
         // Update UI
         bongoUI.CootsMiss();
         bongoUI.SetCatJam(false, false);
+    }
+
+    public float GetDpsTime()
+    {
+        return dspSongTime;
+    }
+
+    public float GetPauseTime()
+    {
+        return totalPauseTime;
     }
 
     public int GetTotalNotes()

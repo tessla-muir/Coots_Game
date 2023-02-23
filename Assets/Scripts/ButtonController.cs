@@ -21,7 +21,7 @@ public class ButtonController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bs.GetHasStarted())
+        if (bs.GetCanMove())
         {
             if (Input.GetKeyDown(keyToPress))
             {
