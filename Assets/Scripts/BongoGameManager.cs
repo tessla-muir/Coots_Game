@@ -9,6 +9,7 @@ public class BongoGameManager : MonoBehaviour
 
     // Music
     bool startPlaying;
+    bool musicStopped;
     public float dspSongTime;
     [SerializeField] AudioSource music;
     [SerializeField] BeatScroller bs;
@@ -33,9 +34,13 @@ public class BongoGameManager : MonoBehaviour
     BongoUI bongoUI;
     EndScreenUI endScreenUI;
 
-    void Start()
+    void Awake() 
     {
         instance = this;
+    }
+
+    void Start()
+    {
         bongoUI = GameObject.FindObjectOfType<BongoUI>();;
         endScreenUI = GameObject.FindObjectOfType<EndScreenUI>();;
     }
@@ -51,8 +56,9 @@ public class BongoGameManager : MonoBehaviour
             music.Play();
         }
 
-        if (startPlaying && !music.isPlaying)
+        if (startPlaying && !music.isPlaying && !musicStopped)
         {
+            musicStopped = true;
             // End screen
             endScreenUI.UpdateEndScreen();
         }

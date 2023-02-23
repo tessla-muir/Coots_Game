@@ -25,7 +25,7 @@ public class EndScreenUI : MonoBehaviour
     void Start()
     {
         bongoUI = GameObject.Find("Bongo UI").GetComponent<BongoUI>();
-        endScreen = GameObject.Find("EndScreen");
+        endScreen = GameObject.Find("EndScreen UI");
         endScreen.SetActive(false);
     }
 

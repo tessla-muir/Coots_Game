@@ -5,27 +5,20 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+    
     int level = 0;
-
-    BongoGameManager bgm;
-
     GameObject bongoUI;
     GameObject bongoGameManager;
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
-        //bgm = GameObject.FindObjectOfType<BongoGameManager>();
-
-        bongoGameManager = GameObject.Find("Bongo Game Manager");
+        instance = this;
         bongoUI = GameObject.Find("Bongo UI");
+        BongoGameManager.instance.gameObject.SetActive(false);
         bongoUI.SetActive(false);
-        bongoGameManager.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Grabs UI needed
@@ -33,7 +26,7 @@ public class GameManager : MonoBehaviour
         {
             if (level == 0) 
             {
-                bongoGameManager.SetActive(true);
+                BongoGameManager.instance.gameObject.SetActive(true);
                 bongoUI.SetActive(true);
             }
         }
