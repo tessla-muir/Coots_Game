@@ -26,12 +26,8 @@ public class BongoUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI multiText;
 
-    // End Screen
-    [SerializeField] GameObject endScreen;
-
     void Start()
     {
-        endScreen.SetActive(false);
         coots = GameObject.Find("Coots").GetComponent<Image>();
         enemy = GameObject.Find("Enemy").GetComponent<Image>();
 

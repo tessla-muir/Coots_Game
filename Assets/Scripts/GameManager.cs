@@ -18,19 +18,15 @@ public class GameManager : MonoBehaviour
         bongoUI.SetActive(false);
     }
 
-    void Update()
+    public void StartBongoGame()
     {
+        BongoGameManager.instance.gameObject.SetActive(true);
+        bongoUI.SetActive(true);
     }
 
     public void Quit()
     {
         Debug.Log("Exiting...");
         Application.Quit();
-    }
-
-    public void StartBongoGame()
-    {
-        BongoGameManager.instance.gameObject.SetActive(true);
-        bongoUI.SetActive(true);
     }
 }

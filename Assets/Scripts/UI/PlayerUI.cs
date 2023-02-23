@@ -1,32 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
+using TMPro;
 
-public class EndScreenUI : MonoBehaviour
+public class PlayerUI : MonoBehaviour
 {
-    GameObject endScreen;
     BongoUI bongoUI;
+    GameObject endScreen;
+    GameObject settingsScreen;
 
-    // Score & Outcome
+    [Header("End Screen")]
     [SerializeField] TextMeshProUGUI outcomeText;
     [SerializeField] TextMeshProUGUI scoreText;
-
-    // Shows counts
     [SerializeField] TextMeshProUGUI perfectText;
     [SerializeField] TextMeshProUGUI greatText;
     [SerializeField] TextMeshProUGUI normalText;
     [SerializeField] TextMeshProUGUI missedText;
-
-    // Sprite
     [SerializeField] Image enemyImage;
 
     void Start()
     {
         bongoUI = GameObject.Find("Bongo UI").GetComponent<BongoUI>();
+
+        // Set end screen to inactive
         endScreen = GameObject.Find("EndScreen UI");
         endScreen.SetActive(false);
+
+        // Set settings screen to inactive
+        settingsScreen = GameObject.Find("Settings UI");
+        settingsScreen.SetActive(false);
     }
 
     public void UpdateEndScreen()

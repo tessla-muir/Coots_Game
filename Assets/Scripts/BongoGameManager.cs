@@ -32,7 +32,7 @@ public class BongoGameManager : MonoBehaviour
 
     // UI
     BongoUI bongoUI;
-    EndScreenUI endScreenUI;
+    PlayerUI playerUI;
 
     void Awake() 
     {
@@ -41,13 +41,13 @@ public class BongoGameManager : MonoBehaviour
 
     void Start()
     {
-        bongoUI = GameObject.FindObjectOfType<BongoUI>();;
-        endScreenUI = GameObject.FindObjectOfType<EndScreenUI>();;
+        bongoUI = GameObject.FindObjectOfType<BongoUI>();
+        playerUI = GameObject.FindObjectOfType<PlayerUI>();
     }
 
     void Update()
     {
-        if (!startPlaying && Input.anyKeyDown)
+        if (!startPlaying && Input.GetKeyDown(KeyCode.Space))
         {
             startPlaying = true;
             bs.SetHasStarted(true);
@@ -59,8 +59,7 @@ public class BongoGameManager : MonoBehaviour
         if (startPlaying && !music.isPlaying && !musicStopped)
         {
             musicStopped = true;
-            // End screen
-            endScreenUI.UpdateEndScreen();
+            playerUI.UpdateEndScreen();
         }
     }
 
