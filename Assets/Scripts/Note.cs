@@ -50,6 +50,7 @@ public class Note : MonoBehaviour
         {
             canBePressed = false;
             BongoGameManager.instance.NoteMissed();
+            gameObject.SetActive(false);
         }
     }
 }
