@@ -23,6 +23,7 @@ public class BongoUI : MonoBehaviour
     GameObject catJam2;
 
     // Text
+    [SerializeField] TextMeshProUGUI startText;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI multiText;
     [SerializeField] TextMeshProUGUI redAccuracyText;
@@ -156,6 +157,12 @@ public class BongoUI : MonoBehaviour
     public void UpdateMulti(int val)
     {
         multiText.text = "Multiplier: x" + val;
+    }
+
+    public void UpdateStartText(bool val)
+    {
+        if (val) startText.text = "Press Space to Start.";
+        if (!val) startText.text = "";
     }
 
     public void ResetAccuracyText()

@@ -55,6 +55,7 @@ public class BongoGameManager : MonoBehaviour
         // Start game by pressing space
         if (!startPlaying && Input.GetKeyDown(KeyCode.Space))
         {
+            bongoUI.UpdateStartText(false);
             startPlaying = true;
             bs.SetCanMove(true);
 
@@ -234,5 +235,6 @@ public class BongoGameManager : MonoBehaviour
         bongoUI.UpdateScore(currentScore);
         bongoUI.SetCatJam(false, false);
         bongoUI.ResetAccuracyText();
+        bongoUI.UpdateStartText(true);
     }
 }
