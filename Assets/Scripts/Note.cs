@@ -5,21 +5,15 @@ using UnityEngine;
 public class Note : MonoBehaviour
 {
     [SerializeField] KeyCode keyToPress;
+    [SerializeField] string buttonName;
+    GameObject button;
     bool canBePressed = false;
     float buttonX;
-    GameObject noteButton;
     
     private void Start() 
     {
-        buttonX = GameObject.FindWithTag("Box").transform.position.x;
-
-        foreach(Transform button in GameObject.Find("NoteButtons").transform)
-        {
-            if (button.position.y == transform.position.y) 
-            {   
-                noteButton = button.gameObject;
-            }
-        }
+        button = GameObject.Find(buttonName);
+        buttonX = button.transform.position.x;
     }
 
     private void Update() 
@@ -32,15 +26,15 @@ public class Note : MonoBehaviour
             // Determine quality of note
             if (Mathf.Abs(buttonX - transform.position.x) > 0.055)
             {
-                BongoGameManager.instance.NoteNormalHit(noteButton);
+                BongoGameManager.instance.NoteNormalHit(button);
             }
             else if (Mathf.Abs(buttonX - transform.position.x) > 0.03)
             {
-                BongoGameManager.instance.NoteGreatHit(noteButton);
+                BongoGameManager.instance.NoteGreatHit(button);
             }
             else
             {
-                BongoGameManager.instance.NotePerfectHit(noteButton);
+                BongoGameManager.instance.NotePerfectHit(button);
             }
         }
     }
@@ -58,7 +52,7 @@ public class Note : MonoBehaviour
         if (other.tag == "Box" && gameObject.activeSelf)
         {
             canBePressed = false;
-            BongoGameManager.instance.NoteMissed(noteButton);
+            BongoGameManager.instance.NoteMissed(button);
             gameObject.SetActive(false);
         }
     }

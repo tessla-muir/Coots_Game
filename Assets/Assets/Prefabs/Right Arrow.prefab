@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa8951f5ae57754280d710370d03c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canBePressed: 0
   keyToPress: 275
+  buttonName: Blue
 --- !u!61 &3976484080917656813
 BoxCollider2D:
   m_ObjectHideFlags: 0

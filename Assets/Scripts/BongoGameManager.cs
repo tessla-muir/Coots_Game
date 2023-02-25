@@ -15,8 +15,8 @@ public class BongoGameManager : MonoBehaviour
     float startPauseTime = 0;
     float endPauseTime = 0;
     float totalPauseTime = 0;
-    [SerializeField] AudioSource music;
-    [SerializeField] BeatScroller bs;
+    AudioSource music;
+    BeatScroller bs;
 
     // Score
     int currentScore = 0;
@@ -47,6 +47,7 @@ public class BongoGameManager : MonoBehaviour
     {
         bongoUI = GameObject.FindObjectOfType<BongoUI>();
         playerUI = GameObject.FindObjectOfType<PlayerUI>();
+        bs = GameObject.FindObjectOfType<BeatScroller>();
     }
 
     void Update()
@@ -195,6 +196,11 @@ public class BongoGameManager : MonoBehaviour
     public bool GetStartPlaying()
     {
         return startPlaying;
+    }
+
+    public void SetMusic(AudioSource audio)
+    {
+        music = audio;
     }
 
     public void Restart()

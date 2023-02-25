@@ -9,19 +9,34 @@ public class GameManager : MonoBehaviour
     
     GameObject bongoUI;
     GameObject bongoGameManager;
+    BeatScroller bs;
+    AudioSource[] music;
+    [SerializeField] GameObject[] arrows;
+    int[] tempos = {172, 172};
 
     void Start()
     {
         instance = this;
+
+        // Inactive at start
         bongoUI = GameObject.Find("Bongo UI");
-        BongoGameManager.instance.gameObject.SetActive(false);
         bongoUI.SetActive(false);
+        BongoGameManager.instance.gameObject.SetActive(false);
+
+        // Get music
+        bs = GameObject.FindObjectOfType<BeatScroller>();
+        music = GameObject.Find("Music Holder").GetComponents<AudioSource>();
     }
 
-    public void StartBongoGame()
+    public void StartBongoGame(int level)
     {
+        // Start values
         BongoGameManager.instance.gameObject.SetActive(true);
         bongoUI.SetActive(true);
+
+        // Update on level
+        BongoGameManager.instance.SetMusic(music[level]);
+        bs.Setup(arrows[level], tempos[level]);
     }
 
     public void Quit()
