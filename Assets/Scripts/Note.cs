@@ -53,4 +53,9 @@ public class Note : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public void SetCanBePressed(bool val)
+    {
+        canBePressed = val;
+    }
 }

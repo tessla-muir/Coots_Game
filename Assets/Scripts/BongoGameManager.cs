@@ -187,4 +187,36 @@ public class BongoGameManager : MonoBehaviour
     {
         return currentScore;
     }
+
+    public void Restart()
+    {
+        // Arrow reset
+        bs.ResetArrows();
+
+        // Multiplier reset
+        currentMulti = 1;
+        multiTracker = 0;
+
+        // Score reset
+        currentScore = 0;
+
+        // Pause time
+        startPauseTime = 0;
+        endPauseTime = 0;
+        totalPauseTime = 0;
+
+        // Total counts
+        perfectCount = greatCount = normalCount = missedCount = 0;
+
+        // Reset bools
+        startPlaying = musicEnded = paused = false;
+
+        // End music
+        music.Stop();
+
+        // Update UI
+        bongoUI.UpdateMulti(currentMulti);
+        bongoUI.UpdateScore(currentScore);
+        bongoUI.SetCatJam(false, false);
+    }
 }
