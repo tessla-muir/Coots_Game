@@ -39,6 +39,11 @@ public class GameManager : MonoBehaviour
         bs.Setup(arrows[level], tempos[level]);
     }
 
+    public AudioSource[] GetMusic()
+    {
+        return music;
+    }
+
     public void Quit()
     {
         Debug.Log("Exiting...");
