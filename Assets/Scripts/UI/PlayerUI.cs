@@ -11,6 +11,7 @@ public class PlayerUI : MonoBehaviour
     GameObject settingsScreen;
     GameObject pauseScreen;
     GameObject creditsScreen;
+    GameObject levelScreen;
 
     [Header("End Screen")]
     [SerializeField] TextMeshProUGUI outcomeText;
@@ -40,6 +41,10 @@ public class PlayerUI : MonoBehaviour
         // Set credits screen to inactive
         creditsScreen = GameObject.Find("Credits UI");
         creditsScreen.SetActive(false);
+
+        // Set level screen to inactive
+        levelScreen = GameObject.Find("Level Select UI");
+        levelScreen.SetActive(false);
     }
 
     public void DisplayEndScreen()
