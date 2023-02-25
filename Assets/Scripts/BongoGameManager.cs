@@ -128,28 +128,31 @@ public class BongoGameManager : MonoBehaviour
         bongoUI.EnemyHit();
     }
 
-    public void NoteNormalHit()
+    public void NoteNormalHit(GameObject button)
     {
         normalCount++;
         currentScore += scorePerNote * currentMulti;
         NoteHit();
+        bongoUI.UpdateAccuracyText(button, 1);
     }
 
-    public void NoteGreatHit()
+    public void NoteGreatHit(GameObject button)
     {
         greatCount++;
         currentScore += scorePerGreatNote * currentMulti;
         NoteHit();
+        bongoUI.UpdateAccuracyText(button, 2);
     }
 
-    public void NotePerfectHit()
+    public void NotePerfectHit(GameObject button)
     {
         perfectCount++;
         currentScore += scorePerPerfectNote * currentMulti;
         NoteHit();
+        bongoUI.UpdateAccuracyText(button, 3);
     }
 
-    public void NoteMissed()
+    public void NoteMissed(GameObject button)
     {
         missedCount++;
 
@@ -161,6 +164,7 @@ public class BongoGameManager : MonoBehaviour
         // Update UI
         bongoUI.CootsMiss();
         bongoUI.SetCatJam(false, false);
+        bongoUI.UpdateAccuracyText(button, 0);
     }
 
     public float GetDpsTime()
@@ -186,6 +190,11 @@ public class BongoGameManager : MonoBehaviour
     public int GetCurrentScore()
     {
         return currentScore;
+    }
+
+    public bool GetStartPlaying()
+    {
+        return startPlaying;
     }
 
     public void Restart()
@@ -218,5 +227,6 @@ public class BongoGameManager : MonoBehaviour
         bongoUI.UpdateMulti(currentMulti);
         bongoUI.UpdateScore(currentScore);
         bongoUI.SetCatJam(false, false);
+        bongoUI.ResetAccuracyText();
     }
 }

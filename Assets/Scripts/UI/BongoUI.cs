@@ -25,6 +25,11 @@ public class BongoUI : MonoBehaviour
     // Text
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI multiText;
+    [SerializeField] TextMeshProUGUI redAccuracyText;
+    [SerializeField] TextMeshProUGUI blueAccuracyText;
+    [SerializeField] TextMeshProUGUI greenAccuracyText;
+    [SerializeField] TextMeshProUGUI orangeAccuracyText;
+    String[] accuracyText = {"Missed!", "Good!", "Great!", "Purrfect!"};
 
     void Start()
     {
@@ -36,6 +41,9 @@ public class BongoUI : MonoBehaviour
         catJam2 = GameObject.Find("CatJam2");
         catJam1.SetActive(false);
         catJam2.SetActive(false);
+
+        // Set text to nothing
+        redAccuracyText.text = blueAccuracyText.text = greenAccuracyText.text = orangeAccuracyText.text = "";
     }
 
     void Update()
@@ -48,8 +56,34 @@ public class BongoUI : MonoBehaviour
         if (!BongoGameManager.instance.GetPaused()) UpdateCootsSprite(left, right);
     }
 
+    public void UpdateAccuracyText(GameObject button, int accuracy)
+    {
+        if (button.name == "Red")
+        {
+            redAccuracyText.text = accuracyText[accuracy];
+            StartCoroutine(TextWait(redAccuracyText));
+        }
+        else if (button.name == "Blue")
+        {
+            blueAccuracyText.text = accuracyText[accuracy];
+            StartCoroutine(TextWait(blueAccuracyText));
+        }
+        else if (button.name == "Green")
+        {
+            greenAccuracyText.text = accuracyText[accuracy];
+            StartCoroutine(TextWait(greenAccuracyText));
+        }
+        else if (button.name == "Orange")
+        {
+            orangeAccuracyText.text = accuracyText[accuracy];
+            StartCoroutine(TextWait(orangeAccuracyText));
+        }
+    }
+
     private void UpdateCootsSprite(bool left, bool right)
     {
+        if (!BongoGameManager.instance.GetStartPlaying()) return;
+        
         if (left && right)
         {
             coots.sprite = cootsBoth;
@@ -108,6 +142,12 @@ public class BongoUI : MonoBehaviour
         enemy.sprite = enemyNormal;
     }
 
+    IEnumerator TextWait(TextMeshProUGUI text)
+    {
+        yield return new WaitForSeconds(.5f);
+        text.text = "";
+    }
+
     public void UpdateScore(int val)
     {
         scoreText.text = "Score: " + val;
@@ -116,5 +156,10 @@ public class BongoUI : MonoBehaviour
     public void UpdateMulti(int val)
     {
         multiText.text = "Multiplier: x" + val;
+    }
+
+    public void ResetAccuracyText()
+    {
+        redAccuracyText.text = blueAccuracyText.text = greenAccuracyText.text = orangeAccuracyText.text = "";
     }
 }
