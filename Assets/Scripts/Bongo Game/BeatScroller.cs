@@ -5,38 +5,29 @@ using UnityEngine;
 public class BeatScroller : MonoBehaviour
 {
     float beatTempo;
-    private GameObject arrowHolder;
+    [SerializeField] GameObject arrowHolder;
     private bool canMove;  
     private Vector3 ogPosition;
 
-    void Start()
-    {
-        // Get arrow holder and starting position
-        arrowHolder = GameObject.Find("ArrowHolder");
-        ogPosition = arrowHolder.transform.position;
-
-        // Destroy all objects underneath it
-        foreach (Transform child in arrowHolder.transform)
-        {
-            child.parent = arrowHolder.transform;
-        }
-    }
 
     public void Setup(Transform newArrows, int tempo)
     {
         beatTempo = 60f / tempo;
 
-        List<Transform> childArrows = new List<Transform>();
-        foreach (Transform child in newArrows)
-        {
-            childArrows.Add(child);
-        }
+        // Get arrow holder and starting position
+        ogPosition = arrowHolder.transform.position;
 
-        // Add all new arrows
-        foreach (Transform child in childArrows)
-        {
-            child.SetParent(arrowHolder.transform, false);
-        }
+        // List<Transform> childArrows = new List<Transform>();
+        // foreach (Transform child in newArrows)
+        // {
+        //     childArrows.Add(child);
+        // }
+
+        // // Add all new arrows
+        // foreach (Transform child in childArrows)
+        // {
+        //     child.SetParent(arrowHolder.transform, false);
+        // }
     }
 
     void Update()

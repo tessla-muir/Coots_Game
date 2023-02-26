@@ -59,7 +59,7 @@ public class PlayerUI : MonoBehaviour
         missedText.text = "Missed: " + BongoGameManager.instance.missedCount;
 
         // Decide & Update Outcome
-        if (BongoGameManager.instance.missedCount < 10)
+        if (BongoGameManager.instance.missedCount/BongoGameManager.instance.GetTotalNotes() < .10)
         {             
             outcomeText.text = "SUCCESS";
             enemyImage.sprite = bongoUI.enemyOnHit;

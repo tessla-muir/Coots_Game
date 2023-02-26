@@ -13,7 +13,6 @@ public class AudioManager : MonoBehaviour
 
     public void ClickAudio()
     {
-        Debug.Log(clickSounds.Length);
         clickSounds[Random.Range(0, clickSounds.Length-1)].Play();
     }
 }
