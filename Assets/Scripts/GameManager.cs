@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     BeatScroller bs;
     AudioSource[] music;
     List<Transform> arrows = new List<Transform>();
-    int[] tempos = {172, 172};
+    int[] tempos = {123, 172, 172};
 
     void Start()
     {
