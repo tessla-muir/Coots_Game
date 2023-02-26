@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class SliderScript : MonoBehaviour
 {
-    [SerializeField] Slider slider;
+    [SerializeField] GameObject holder;
     [SerializeField] int startValue;
+    [SerializeField] Slider slider;
     AudioSource[] _audio;
 
     void Start()
     {
-        _audio = GameObject.FindObjectOfType<GameManager>().GetMusic();
+        _audio = holder.transform.GetComponents<AudioSource>();
 
         slider.maxValue = 100;
         slider.minValue = 0;
