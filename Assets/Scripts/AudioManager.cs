@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    AudioSource clickSound;
+    AudioSource[] clickSounds;
 
     void Start() 
     {
-        clickSound = GameObject.Find("SFX Holder").GetComponent<AudioSource>();
+        clickSounds = GameObject.Find("SFX Holder").GetComponents<AudioSource>();
     }
 
     public void ClickAudio()
     {
-        clickSound.Play();
+        Debug.Log(clickSounds.Length);
+        clickSounds[Random.Range(0, clickSounds.Length-1)].Play();
     }
 }

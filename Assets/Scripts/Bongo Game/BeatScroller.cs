@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BeatScroller : MonoBehaviour
 {
-    [SerializeField] float beatTempo;
+    float beatTempo;
     private GameObject arrowHolder;
     private bool canMove;  
     private Vector3 ogPosition;
@@ -22,12 +22,12 @@ public class BeatScroller : MonoBehaviour
         }
     }
 
-    public void Setup(GameObject newArrows, int tempo)
+    public void Setup(Transform newArrows, int tempo)
     {
         beatTempo = 60f / tempo;
 
         List<Transform> childArrows = new List<Transform>();
-        foreach (Transform child in newArrows.transform)
+        foreach (Transform child in newArrows)
         {
             childArrows.Add(child);
         }

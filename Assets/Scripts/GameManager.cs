@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     GameObject bongoGameManager;
     BeatScroller bs;
     AudioSource[] music;
-    [SerializeField] GameObject[] arrows;
+    List<Transform> arrows = new List<Transform>();
     int[] tempos = {172, 172};
 
     void Start()
@@ -26,6 +26,12 @@ public class GameManager : MonoBehaviour
         // Get music
         bs = GameObject.FindObjectOfType<BeatScroller>();
         music = GameObject.Find("Music Holder").GetComponents<AudioSource>();
+
+        // Get arrows
+        foreach (Transform child in GameObject.Find("Arrow Holder").transform)
+        {
+            arrows.Add(child.transform);
+        }
     }
 
     public void StartBongoGame(int level)
