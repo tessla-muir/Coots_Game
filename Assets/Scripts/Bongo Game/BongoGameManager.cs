@@ -19,6 +19,13 @@ public class BongoGameManager : MonoBehaviour
     BeatScroller bs;
     NoteTracker noteTracker;
 
+    // Arrow generation
+    [SerializeField] GameObject arrowHolder;
+    [SerializeField] GameObject upArrow;
+    [SerializeField] GameObject downArrow;
+    [SerializeField] GameObject leftArrow;
+    [SerializeField] GameObject rightArrow;
+
     // Score
     int currentScore = 0;
     int scorePerNote = 100;
@@ -50,6 +57,55 @@ public class BongoGameManager : MonoBehaviour
         playerUI = GameObject.FindObjectOfType<PlayerUI>();
         bs = GameObject.FindObjectOfType<BeatScroller>();
         noteTracker = GameObject.FindObjectOfType<NoteTracker>();
+
+        PlaceArrows();
+    }
+
+    void PlaceArrows()
+    {
+        // Remove all arrows
+        foreach (Transform arrow in arrowHolder.transform)
+        {
+            Destroy(arrow.gameObject);
+        }
+
+        for (int i = 0; i < 20; i++)
+        {
+            int choice = Random.Range(1, 5);
+            float yVal = 0;
+            GameObject newArrow = null;
+
+            switch (choice)
+            {
+                case 1:
+                    newArrow = Instantiate(upArrow); 
+                    yVal = 150f;
+                    break;
+
+                case 2:
+                    newArrow = Instantiate(rightArrow);
+                    yVal = 50f;
+                    break;
+
+                case 3:
+                    newArrow = Instantiate(leftArrow);
+                    yVal = -50f;
+                    break;
+
+                case 4:
+                    newArrow = Instantiate(downArrow);
+                    yVal = -150f;
+                    break;
+
+                default:
+                    continue;
+            }
+            
+            newArrow.transform.SetParent(arrowHolder.transform, true);
+            newArrow.transform.localScale = new Vector3(1, 1, 1);
+            newArrow.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+            newArrow.GetComponent<RectTransform>().localPosition = new Vector3(-320 + 80*i, yVal, 0);
+        }
     }
 
     void Update()
