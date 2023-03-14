@@ -12,12 +12,16 @@ public class GameManager : MonoBehaviour
     BeatScroller bs;
     AudioSource[] music;
     List<Transform> arrows = new List<Transform>();
-    int[] tempos = {123, 172, 172};
+    int[] tempos = {123, 172};
+    int currentLevel = 0;
+
+    void Awake() 
+    {
+        instance = this;
+    }
 
     void Start()
     {
-        instance = this;
-
         // Inactive at start
         bongoUI = GameObject.Find("Bongo UI");
         bongoUI.SetActive(false);
@@ -41,6 +45,7 @@ public class GameManager : MonoBehaviour
         bongoUI.SetActive(true);
 
         // Update on level
+        currentLevel = level;
         BongoGameManager.instance.SetMusic(music[level]);
         bs.Setup(arrows[level], tempos[level]);
     }
@@ -54,5 +59,10 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Exiting...");
         Application.Quit();
+    }
+
+    public int GetCurrentLevel()
+    {
+        return currentLevel;
     }
 }
