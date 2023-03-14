@@ -224,9 +224,6 @@ public class BongoGameManager : MonoBehaviour
 
     public void Restart()
     {
-        // Arrow reset
-        bs.ResetArrows();
-
         // Multiplier reset
         currentMulti = 1;
         multiTracker = 0;
@@ -248,6 +245,9 @@ public class BongoGameManager : MonoBehaviour
         // End music
         music.Stop();
 
+        // Arrow reset -- Order matters: Needs after startPlaying reset
+        bs.ResetArrows();
+
         // Update UI
         bongoUI.UpdateMulti(currentMulti);
         bongoUI.UpdateScore(currentScore);
@@ -260,7 +260,5 @@ public class BongoGameManager : MonoBehaviour
         noteTracker.SetRightIndex(0);
         noteTracker.SetUpIndex(0);
         noteTracker.SetDownIndex(0);
-
-        noteTracker.Setup();
     }
 }

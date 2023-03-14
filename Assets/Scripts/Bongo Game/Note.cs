@@ -66,7 +66,7 @@ public class Note : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other) 
     {
-        if (other.tag == "Box" && gameObject.activeSelf)
+        if (other.tag == "Box" && gameObject.activeSelf && BongoGameManager.instance.GetStartPlaying())
         {
             canBePressed = false;
             BongoGameManager.instance.NoteMissed(button);
