@@ -7,6 +7,10 @@ TagManager:
   - Rhythm Box
   - Box
   - Bar
+  - Up
+  - Right
+  - Left
+  - Down
   layers:
   - Default
   - TransparentFX

@@ -9,22 +9,39 @@ public class Note : MonoBehaviour
     GameObject button;
     bool canBePressed = false;
     float buttonX;
+    NoteTracker noteTracker;
     
     private void Start() 
     {
         button = GameObject.Find(buttonName);
         buttonX = button.transform.position.x;
+        noteTracker = GameObject.FindObjectOfType<NoteTracker>();
     }
 
     private void Update() 
     {
-        if (Input.GetKeyDown(keyToPress) && canBePressed && !BongoGameManager.instance.GetPaused())
+        if (!noteTracker.IsHeadArrow(keyToPress, gameObject)) { return; }
+
+        if (Input.GetKeyDown(keyToPress) && canBePressed && !BongoGameManager.instance.GetPaused() && noteTracker.IsHeadArrow(keyToPress, gameObject))
         {
             // Make note inactive
             gameObject.SetActive(false);
 
+            // Move index
+            noteTracker.NextIndex(keyToPress);
+
             // Determine quality of note
-            if (Mathf.Abs(buttonX - transform.position.x) > 0.055)
+            if (buttonX - transform.position.x > 0.33)
+            {
+                // Miss -- too far left
+                BongoGameManager.instance.NoteMissed(button);
+            }
+            else if (buttonX - transform.position.x < -0.33)
+            {
+                // Offbeat -- too far right; early
+                BongoGameManager.instance.NoteOffbeat(button);
+            }
+            else if (Mathf.Abs(buttonX - transform.position.x) > 0.055)
             {
                 BongoGameManager.instance.NoteNormalHit(button);
             }
@@ -54,6 +71,7 @@ public class Note : MonoBehaviour
             canBePressed = false;
             BongoGameManager.instance.NoteMissed(button);
             gameObject.SetActive(false);
+            noteTracker.NextIndex(keyToPress);
         }
     }
 

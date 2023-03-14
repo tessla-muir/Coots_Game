@@ -17,6 +17,7 @@ public class BongoGameManager : MonoBehaviour
     float totalPauseTime = 0;
     AudioSource music;
     BeatScroller bs;
+    NoteTracker noteTracker;
 
     // Score
     int currentScore = 0;
@@ -48,6 +49,7 @@ public class BongoGameManager : MonoBehaviour
         bongoUI = GameObject.FindObjectOfType<BongoUI>();
         playerUI = GameObject.FindObjectOfType<PlayerUI>();
         bs = GameObject.FindObjectOfType<BeatScroller>();
+        noteTracker = GameObject.FindObjectOfType<NoteTracker>();
     }
 
     void Update()
@@ -58,6 +60,7 @@ public class BongoGameManager : MonoBehaviour
             bongoUI.UpdateStartText(false);
             startPlaying = true;
             bs.SetCanMove(true);
+            noteTracker.Setup();
 
             dspSongTime = (float) AudioSettings.dspTime;
             music.Play();
@@ -169,6 +172,21 @@ public class BongoGameManager : MonoBehaviour
         bongoUI.UpdateAccuracyText(button, 0);
     }
 
+    public void NoteOffbeat(GameObject button)
+    {
+        missedCount++;
+
+        // Adjust multiplier
+        currentMulti = 1;
+        multiTracker = 0;
+        bongoUI.UpdateMulti(currentMulti);
+
+        // Update UI
+        bongoUI.CootsMiss();
+        bongoUI.SetCatJam(false, false);
+        bongoUI.UpdateAccuracyText(button, 4);
+    }
+
     public float GetDpsTime()
     {
         return dspSongTime;
@@ -236,5 +254,13 @@ public class BongoGameManager : MonoBehaviour
         bongoUI.SetCatJam(false, false);
         bongoUI.ResetAccuracyText();
         bongoUI.UpdateStartText(true);
+
+        // Reset Indicies
+        noteTracker.SetLeftIndex(0);
+        noteTracker.SetRightIndex(0);
+        noteTracker.SetUpIndex(0);
+        noteTracker.SetDownIndex(0);
+
+        noteTracker.Setup();
     }
 }

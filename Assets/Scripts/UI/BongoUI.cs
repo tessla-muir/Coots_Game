@@ -30,7 +30,7 @@ public class BongoUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI blueAccuracyText;
     [SerializeField] TextMeshProUGUI greenAccuracyText;
     [SerializeField] TextMeshProUGUI orangeAccuracyText;
-    String[] accuracyText = {"Missed!", "Good!", "Great!", "Purrfect!"};
+    String[] accuracyText = {"Missed", "Good!", "Great!", "Purrfect!!", "Offbeat"};
 
     void Start()
     {
