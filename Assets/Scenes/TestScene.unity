@@ -17877,7 +17877,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: -50}
+  m_AnchoredPosition: {x: -50, y: -50}
   m_SizeDelta: {x: 350, y: 450}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1252732232
@@ -24810,7 +24810,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score:'
+  m_text: 'Score: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: edfbfa624d5135e449134a30d5e6a5c5, type: 2}
   m_sharedMaterial: {fileID: 3431281994505910962, guid: edfbfa624d5135e449134a30d5e6a5c5, type: 2}
@@ -24905,7 +24905,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 80, y: 150}
-  m_SizeDelta: {x: 450, y: 75}
+  m_SizeDelta: {x: 550, y: 75}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &1602064922
 GameObject:

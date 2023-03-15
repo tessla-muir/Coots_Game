@@ -35,7 +35,7 @@ public class BongoGameManager : MonoBehaviour
     public int greatCount = 0;
     public int normalCount = 0;
     public int missedCount = 0;
-    
+
 
     // Mutliplier
     int currentMulti = 1;
@@ -46,7 +46,7 @@ public class BongoGameManager : MonoBehaviour
     BongoUI bongoUI;
     PlayerUI playerUI;
 
-    void Awake() 
+    void Awake()
     {
         instance = this;
     }
@@ -73,43 +73,70 @@ public class BongoGameManager : MonoBehaviour
         float length = music.clip.length;
         float tempo = bs.GetTempo();
 
-        for (int i = 0; i < length * tempo/(2.1*60f); i++)
+        for (int i = 0; i < length * tempo / (2.1 * 60f); i++)
         {
-            int choice = Random.Range(1, 5);
-            float yVal = 0;
-            GameObject newArrow = null;
+            int choice = Random.Range(1, 101);
 
-            switch (choice)
+            // Single arrow
+            if (choice <= 75)
             {
-                case 1:
-                    newArrow = Instantiate(upArrow); 
-                    yVal = 150f;
-                    break;
-
-                case 2:
-                    newArrow = Instantiate(rightArrow);
-                    yVal = 50f;
-                    break;
-
-                case 3:
-                    newArrow = Instantiate(leftArrow);
-                    yVal = -50f;
-                    break;
-
-                case 4:
-                    newArrow = Instantiate(downArrow);
-                    yVal = -150f;
-                    break;
-
-                default:
-                    continue;
+                MakeRandomArrow(i);
             }
-            
-            newArrow.transform.SetParent(arrowHolder.transform, true);
-            newArrow.transform.localScale = new Vector3(1, 1, 1);
-            newArrow.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-            newArrow.GetComponent<RectTransform>().localPosition = new Vector3(-320 + 80*i, yVal, 0);
+            // Double arrows
+            else if (choice <= 94)
+            {
+                int firstChoice = MakeRandomArrow(i);
+                MakeRandomArrow(i, firstChoice);
+            }
+            // No arrow
+            else
+            {
+                continue;
+            }
         }
+    }
+
+    private int MakeRandomArrow(float xVal, int restriction = 0)
+    {
+        float yVal = 0;
+        GameObject newArrow = null;
+        int arrowChoice = Random.Range(1, 5);
+
+        // Make sure choice isn't the restricted value
+        while (arrowChoice == restriction)
+        {
+           arrowChoice = Random.Range(1, 5); 
+        }
+        
+        // Make arrow based on choice
+        switch (arrowChoice)
+        {
+            case 1:
+                newArrow = Instantiate(upArrow);
+                yVal = 150f;
+                break;
+
+            case 2:
+                newArrow = Instantiate(rightArrow);
+                yVal = 50f;
+                break;
+
+            case 3:
+                newArrow = Instantiate(leftArrow);
+                yVal = -50f;
+                break;
+
+            case 4:
+                newArrow = Instantiate(downArrow);
+                yVal = -150f;
+                break;
+        }
+
+        newArrow.transform.SetParent(arrowHolder.transform, true);
+        newArrow.transform.localScale = new Vector3(1, 1, 1);
+        newArrow.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+        newArrow.GetComponent<RectTransform>().localPosition = new Vector3(-320 + 80 * xVal, yVal, 0);
+        return arrowChoice;
     }
 
     void Update()
@@ -122,7 +149,7 @@ public class BongoGameManager : MonoBehaviour
             bs.SetCanMove(true);
             noteTracker.Setup();
 
-            dspSongTime = (float) AudioSettings.dspTime;
+            dspSongTime = (float)AudioSettings.dspTime;
             music.Play();
         }
 
@@ -153,7 +180,7 @@ public class BongoGameManager : MonoBehaviour
     {
         paused = true;
         if (!startPlaying) return;
-        startPauseTime = (float) AudioSettings.dspTime;
+        startPauseTime = (float)AudioSettings.dspTime;
         music.Pause();
         bs.SetCanMove(false);
     }
@@ -162,7 +189,7 @@ public class BongoGameManager : MonoBehaviour
     {
         paused = false;
         if (!startPlaying) return;
-        endPauseTime = (float) AudioSettings.dspTime;
+        endPauseTime = (float)AudioSettings.dspTime;
         music.Play();
         bs.SetCanMove(true);
 
