@@ -63,6 +63,55 @@ public class BongoGameManager : MonoBehaviour
         PlaceArrows();
     }
 
+    void Update()
+    {
+        // Start game by pressing space
+        if (!startedSong && Input.GetKeyDown(KeyCode.Space))
+        {
+            bongoUI.UpdateStartText(10);
+            bongoUI.SetPauseText(true);
+            startedSong = true;
+            bs.SetCanMove(true);
+            noteTracker.Setup();
+
+            dspSongTime = (float)AudioSettings.dspTime;
+            music.time = 0;
+            music.Play();
+        }
+
+        // Pause by presssing ESC
+        if (startedSong && !paused && Input.GetKeyDown(KeyCode.Escape))
+        {
+            playerUI.SetPauseMenu(true);
+            bongoUI.UpdateStartText(2);
+            Pause();
+        }
+        // Closes pause & settings menu with esc
+        else if (startedSong && paused && Input.GetKeyDown(KeyCode.Escape) && playerUI.IsPauseScreenActive())
+        {
+            playerUI.SetPauseMenu(false);
+            playerUI.SetSettingsMenu(false);
+        }
+        // Opens pause menu while paused
+        else if (startedSong && paused && Input.GetKeyDown(KeyCode.Escape) && !playerUI.IsPauseScreenActive())
+        {
+            playerUI.SetPauseMenu(true);
+        }
+        // Resume song
+        else if (startedSong && paused && Input.GetKeyDown(KeyCode.Space) && !playerUI.hasActiveScreens())
+        {
+            bongoUI.UpdateStartText(10);
+            Resume();
+        }
+
+        // Shows end screen when done
+        if (startedSong && !paused && !music.isPlaying && !displayedEndMenu)
+        {
+            displayedEndMenu = true;
+            playerUI.DisplayEndScreen();
+        }
+    }
+
     void PlaceArrows()
     {
         // Remove all arrows in holder -- if any
@@ -139,54 +188,6 @@ public class BongoGameManager : MonoBehaviour
         newArrow.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
         newArrow.GetComponent<RectTransform>().localPosition = new Vector3(-320 + 80 * xVal, yVal, 0);
         return arrowChoice;
-    }
-
-    void Update()
-    {
-        // Start game by pressing space
-        if (!startedSong && Input.GetKeyDown(KeyCode.Space))
-        {
-            bongoUI.UpdateStartText(10);
-            bongoUI.SetPauseText(true);
-            startedSong = true;
-            bs.SetCanMove(true);
-            noteTracker.Setup();
-
-            dspSongTime = (float)AudioSettings.dspTime;
-            music.Play();
-        }
-
-        // Pause by presssing ESC
-        if (startedSong && !paused && Input.GetKeyDown(KeyCode.Escape))
-        {
-            playerUI.SetPauseMenu(true);
-            bongoUI.UpdateStartText(2);
-            Pause();
-        }
-        // Closes pause & settings menu with esc
-        else if (startedSong && paused && Input.GetKeyDown(KeyCode.Escape) && playerUI.IsPauseScreenActive())
-        {
-            playerUI.SetPauseMenu(false);
-            playerUI.SetSettingsMenu(false);
-        }
-        // Opens pause menu while paused
-        else if (startedSong && paused && Input.GetKeyDown(KeyCode.Escape) && !playerUI.IsPauseScreenActive())
-        {
-            playerUI.SetPauseMenu(true);
-        }
-        // Resume song
-        else if (startedSong && paused && Input.GetKeyDown(KeyCode.Space) && !playerUI.hasActiveScreens())
-        {
-            bongoUI.UpdateStartText(10);
-            Resume();
-        }
-
-        // Shows end screen when done
-        if (startedSong && !paused && !music.isPlaying && !displayedEndMenu)
-        {
-            displayedEndMenu = true;
-            playerUI.DisplayEndScreen();
-        }
     }
 
     public void Pause()
