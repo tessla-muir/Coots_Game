@@ -3941,7 +3941,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c2fc393c4e5021649b52b8c3b6b3f368, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4052,7 +4052,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e9625e84a7ed7264dbc692e1f8d38fc3, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -8780,7 +8780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holder: {fileID: 304050396}
-  startValue: 20
+  startValue: 30
   slider: {fileID: 646887709}
   isMusic: 1
 --- !u!114 &646887709
@@ -32932,6 +32932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fbbcab70a6894d4caf46bcb39ee7bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 646887708}
   arrowHolder: {fileID: 2049925141}
   upArrow: {fileID: 520358284769953005, guid: 11b7d6cadf3235e4d94200c0527c72c3, type: 3}
   downArrow: {fileID: 7758807291589969020, guid: 74280c9cebf93a6488ed3378da1b8a2d, type: 3}

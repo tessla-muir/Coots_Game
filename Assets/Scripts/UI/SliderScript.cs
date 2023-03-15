@@ -11,27 +11,35 @@ public class SliderScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
     [SerializeField] Slider slider;
     [SerializeField] bool isMusic;
     AudioSource[] _audio;
+    float resumeTime;
+    bool hasAdjustedVolume;
 
     void Start()
     {
         _audio = holder.transform.GetComponents<AudioSource>();
 
+        slider.onValueChanged.AddListener((val) =>
+        {
+            foreach (var audio in _audio)
+            {
+                audio.volume = val / 100;
+            }
+        });
+
         slider.maxValue = 100;
         slider.minValue = 0;
         slider.value = startValue;
-
-        slider.onValueChanged.AddListener((val) => {
-            foreach (var audio in _audio)
-            {
-                audio.volume = val/100;
-            }
-        });
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         if (isMusic)
         {
+            if (!hasAdjustedVolume)
+            {
+                resumeTime = _audio[GameManager.instance.GetCurrentLevel()].time;
+                hasAdjustedVolume = true;
+            }
             _audio[GameManager.instance.GetCurrentLevel()].Play();
         }
         else
@@ -44,11 +52,17 @@ public class SliderScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
     {
         if (isMusic)
         {
-            _audio[GameManager.instance.GetCurrentLevel()].Stop();
+            _audio[GameManager.instance.GetCurrentLevel()].Pause();
+            _audio[GameManager.instance.GetCurrentLevel()].time = resumeTime;
         }
         else
         {
             _audio[0].Stop();
         }
+    }
+
+    public void SetHasAdjustedVolume(bool val)
+    {
+        hasAdjustedVolume = val;
     }
 }

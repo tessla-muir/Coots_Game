@@ -18,6 +18,7 @@ public class BongoGameManager : MonoBehaviour
     AudioSource music;
     BeatScroller bs;
     NoteTracker noteTracker;
+    [SerializeField] SliderScript slider;
 
     // Arrow generation
     [SerializeField] GameObject arrowHolder;
@@ -45,6 +46,7 @@ public class BongoGameManager : MonoBehaviour
     // UI
     BongoUI bongoUI;
     PlayerUI playerUI;
+
 
     void Awake()
     {
@@ -195,6 +197,8 @@ public class BongoGameManager : MonoBehaviour
 
         // Total pause time -- accounts for multiple paused intervals
         totalPauseTime += endPauseTime - startPauseTime;
+
+        slider.SetHasAdjustedVolume(false);
     }
 
     private void NoteHit()
