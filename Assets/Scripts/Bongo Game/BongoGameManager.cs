@@ -63,13 +63,17 @@ public class BongoGameManager : MonoBehaviour
 
     void PlaceArrows()
     {
-        // Remove all arrows
+        // Remove all arrows in holder -- if any
         foreach (Transform arrow in arrowHolder.transform)
         {
             Destroy(arrow.gameObject);
         }
 
-        for (int i = 0; i < 20; i++)
+        // Determine arrows needed
+        float length = music.clip.length;
+        float tempo = bs.GetTempo();
+
+        for (int i = 0; i < length * tempo/(2.1*60f); i++)
         {
             int choice = Random.Range(1, 5);
             float yVal = 0;
