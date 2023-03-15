@@ -81,4 +81,9 @@ public class PlayerUI : MonoBehaviour
     {
         settingsScreen.SetActive(val);
     }
+
+    public bool hasActiveScreens()
+    {
+        return pauseScreen.activeSelf || settingsScreen.activeSelf  || endScreen.activeSelf;
+    }
 }

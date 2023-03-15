@@ -8,8 +8,8 @@ public class BongoGameManager : MonoBehaviour
     public static BongoGameManager instance;
 
     // Music
-    bool startPlaying = false;
-    bool musicEnded = false;
+    bool startedSong = false;
+    bool displayedEndMenu = false;
     bool paused = false;
     float dspSongTime;
     float startPauseTime = 0;
@@ -144,10 +144,10 @@ public class BongoGameManager : MonoBehaviour
     void Update()
     {
         // Start game by pressing space
-        if (!startPlaying && Input.GetKeyDown(KeyCode.Space))
+        if (!startedSong && Input.GetKeyDown(KeyCode.Space))
         {
-            bongoUI.UpdateStartText(false);
-            startPlaying = true;
+            bongoUI.UpdateStartText(10);
+            startedSong = true;
             bs.SetCanMove(true);
             noteTracker.Setup();
 
@@ -155,25 +155,29 @@ public class BongoGameManager : MonoBehaviour
             music.Play();
         }
 
-        // Allows player to pause
-        if (Input.GetKeyDown(KeyCode.Escape) && !paused)
+        // Pause by presssing ESC
+        if (startedSong && !paused && Input.GetKeyDown(KeyCode.Escape))
         {
             playerUI.SetPauseMenu(true);
+            bongoUI.UpdateStartText(2);
             Pause();
         }
-        // In pause menu -- can press escape to leave or the button
-        else if (Input.GetKeyDown(KeyCode.Escape) && paused)
+        // Closes pause menu with esc
+        else if (startedSong && paused && Input.GetKeyDown(KeyCode.Escape))
         {
-            // Make sure all menus close then
             playerUI.SetPauseMenu(false);
-            playerUI.SetSettingsMenu(false);
+        }
+        // Resume song
+        else if (startedSong && paused && Input.GetKeyDown(KeyCode.Space) && !playerUI.hasActiveScreens())
+        {
+            bongoUI.UpdateStartText(10);
             Resume();
         }
 
         // Shows end screen when done
-        if (!paused && startPlaying && !music.isPlaying && !musicEnded)
+        if (startedSong && !paused && !music.isPlaying && !displayedEndMenu)
         {
-            musicEnded = true;
+            displayedEndMenu = true;
             playerUI.DisplayEndScreen();
         }
     }
@@ -181,7 +185,7 @@ public class BongoGameManager : MonoBehaviour
     public void Pause()
     {
         paused = true;
-        if (!startPlaying) return;
+        if (!startedSong) return;
         startPauseTime = (float)AudioSettings.dspTime;
         music.Pause();
         bs.SetCanMove(false);
@@ -190,15 +194,13 @@ public class BongoGameManager : MonoBehaviour
     public void Resume()
     {
         paused = false;
-        if (!startPlaying) return;
+        if (!startedSong) return;
         endPauseTime = (float)AudioSettings.dspTime;
         music.Play();
         bs.SetCanMove(true);
 
         // Total pause time -- accounts for multiple paused intervals
         totalPauseTime += endPauseTime - startPauseTime;
-
-        slider.SetHasAdjustedVolume(false);
     }
 
     private void NoteHit()
@@ -305,7 +307,7 @@ public class BongoGameManager : MonoBehaviour
 
     public bool GetStartPlaying()
     {
-        return startPlaying;
+        return startedSong;
     }
 
     public void SetMusic(AudioSource audio)
@@ -331,7 +333,7 @@ public class BongoGameManager : MonoBehaviour
         perfectCount = greatCount = normalCount = missedCount = 0;
 
         // Reset bools
-        startPlaying = musicEnded = paused = false;
+        startedSong = displayedEndMenu = paused = false;
 
         // End music
         music.Stop();
@@ -344,7 +346,7 @@ public class BongoGameManager : MonoBehaviour
         bongoUI.UpdateScore(currentScore);
         bongoUI.SetCatJam(false, false);
         bongoUI.ResetAccuracyText();
-        bongoUI.UpdateStartText(true);
+        bongoUI.UpdateStartText(1);
 
         // Reset Indicies
         noteTracker.SetLeftIndex(0);

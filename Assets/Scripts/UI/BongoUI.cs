@@ -159,10 +159,11 @@ public class BongoUI : MonoBehaviour
         multiText.text = "Multiplier: x" + val;
     }
 
-    public void UpdateStartText(bool val)
+    public void UpdateStartText(int val)
     {
-        if (val) startText.text = "Press Space to Start.";
-        if (!val) startText.text = "";
+        if (val == 1) startText.text = "Press Space to Start.";
+        else if (val == 2) startText.text = "Press Space to Continue.";
+        else startText.text = "";
     }
 
     public void ResetAccuracyText()
