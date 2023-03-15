@@ -16,9 +16,9 @@ public class BongoGameManager : MonoBehaviour
     float endPauseTime = 0;
     float totalPauseTime = 0;
     AudioSource music;
-    BeatScroller bs;
     NoteTracker noteTracker;
     [SerializeField] SliderScript slider;
+    [SerializeField] BeatScroller bs;
 
     // Arrow generation
     [SerializeField] GameObject arrowHolder;
@@ -37,6 +37,13 @@ public class BongoGameManager : MonoBehaviour
     public int normalCount = 0;
     public int missedCount = 0;
 
+    // Difficulty
+    int difficulty = 0;
+    // int[] singleArrowChance = {100, 0, 0}; // easy, medium, hard
+    // int[] doubleArrowChance = {0, 100, 0};
+    int[] singleArrowChance = {80, 80, 75}; // easy, medium, hard
+    int[] doubleArrowChance = {2, 10, 17};
+    // noArrowChance = {12, 10, 8}
 
     // Mutliplier
     int currentMulti = 1;
@@ -57,7 +64,6 @@ public class BongoGameManager : MonoBehaviour
     {
         bongoUI = GameObject.FindObjectOfType<BongoUI>();
         playerUI = GameObject.FindObjectOfType<PlayerUI>();
-        bs = GameObject.FindObjectOfType<BeatScroller>();
         noteTracker = GameObject.FindObjectOfType<NoteTracker>();
 
         PlaceArrows();
@@ -112,7 +118,7 @@ public class BongoGameManager : MonoBehaviour
         }
     }
 
-    void PlaceArrows()
+    public void PlaceArrows()
     {
         // Remove all arrows in holder -- if any
         foreach (Transform arrow in arrowHolder.transform)
@@ -129,12 +135,12 @@ public class BongoGameManager : MonoBehaviour
             int choice = Random.Range(1, 101);
 
             // Single arrow
-            if (choice <= 75)
+            if (choice <= singleArrowChance[difficulty])
             {
                 MakeRandomArrow(i);
             }
             // Double arrows
-            else if (choice <= 94)
+            else if (choice <= singleArrowChance[difficulty] + doubleArrowChance[difficulty])
             {
                 int firstChoice = MakeRandomArrow(i);
                 MakeRandomArrow(i, firstChoice);
@@ -375,5 +381,10 @@ public class BongoGameManager : MonoBehaviour
         noteTracker.SetRightIndex(0);
         noteTracker.SetUpIndex(0);
         noteTracker.SetDownIndex(0);
+    }
+
+    public void SetDifficulty(int val)
+    {
+        difficulty = val;
     }
 }

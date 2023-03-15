@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     List<Transform> arrows = new List<Transform>();
     int[] tempos = {123, 172};
     int currentLevel = 0;
+    int difficulty = 0;
 
     void Awake() 
     {
@@ -38,16 +39,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartBongoGame(int level)
+    public void StartBongoGame(int level) 
     {
         // Start values
         BongoGameManager.instance.gameObject.SetActive(true);
         bongoUI.SetActive(true);
 
+        bs.Setup(arrows[level], tempos[level]);
+
         // Update on level
         currentLevel = level;
         BongoGameManager.instance.SetMusic(music[level]);
-        bs.Setup(arrows[level], tempos[level]);
+        BongoGameManager.instance.SetDifficulty(difficulty);
+        BongoGameManager.instance.PlaceArrows();
     }
 
     public AudioSource[] GetMusic()
@@ -64,5 +68,10 @@ public class GameManager : MonoBehaviour
     public int GetCurrentLevel()
     {
         return currentLevel;
+    }
+
+    public void SetDifficulty(int val)
+    {
+        difficulty = val;
     }
 }

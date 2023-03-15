@@ -12,6 +12,7 @@ public class PlayerUI : MonoBehaviour
     GameObject pauseScreen;
     GameObject creditsScreen;
     GameObject levelScreen;
+    GameObject songScreen;
 
     [Header("End Screen")]
     [SerializeField] TextMeshProUGUI outcomeText;
@@ -21,6 +22,9 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI normalText;
     [SerializeField] TextMeshProUGUI missedText;
     [SerializeField] Image enemyImage;
+    
+    [Header("Level Select Screen")]
+    [SerializeField] TextMeshProUGUI difficultyText;
 
     void Start()
     {
@@ -45,6 +49,10 @@ public class PlayerUI : MonoBehaviour
         // Set level screen to inactive
         levelScreen = GameObject.Find("Level Select UI");
         levelScreen.SetActive(false);
+
+        // Set song screen to inactive
+        songScreen = GameObject.Find("Song Select UI");
+        songScreen.SetActive(false);
     }
 
     public void DisplayEndScreen()
@@ -90,5 +98,10 @@ public class PlayerUI : MonoBehaviour
     public bool hasActiveScreens()
     {
         return pauseScreen.activeSelf || settingsScreen.activeSelf  || endScreen.activeSelf;
+    }
+
+    public void SetDifficultyText(string difficulty)
+    {
+        difficultyText.text = "Difficulty: " + difficulty;
     }
 }
