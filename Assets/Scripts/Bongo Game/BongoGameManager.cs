@@ -147,6 +147,7 @@ public class BongoGameManager : MonoBehaviour
         if (!startedSong && Input.GetKeyDown(KeyCode.Space))
         {
             bongoUI.UpdateStartText(10);
+            bongoUI.SetPauseText(true);
             startedSong = true;
             bs.SetCanMove(true);
             noteTracker.Setup();
@@ -162,10 +163,16 @@ public class BongoGameManager : MonoBehaviour
             bongoUI.UpdateStartText(2);
             Pause();
         }
-        // Closes pause menu with esc
-        else if (startedSong && paused && Input.GetKeyDown(KeyCode.Escape))
+        // Closes pause & settings menu with esc
+        else if (startedSong && paused && Input.GetKeyDown(KeyCode.Escape) && playerUI.IsPauseScreenActive())
         {
             playerUI.SetPauseMenu(false);
+            playerUI.SetSettingsMenu(false);
+        }
+        // Opens pause menu while paused
+        else if (startedSong && paused && Input.GetKeyDown(KeyCode.Escape) && !playerUI.IsPauseScreenActive())
+        {
+            playerUI.SetPauseMenu(true);
         }
         // Resume song
         else if (startedSong && paused && Input.GetKeyDown(KeyCode.Space) && !playerUI.hasActiveScreens())
@@ -201,6 +208,20 @@ public class BongoGameManager : MonoBehaviour
 
         // Total pause time -- accounts for multiple paused intervals
         totalPauseTime += endPauseTime - startPauseTime;
+    }
+
+    private void OnApplicationFocus(bool focusStatus) 
+    {
+        if (!focusStatus && startedSong)
+        {
+            playerUI.SetPauseMenu(true);
+            bongoUI.UpdateStartText(2);
+
+            if (!paused)
+            {
+                Pause();
+            }
+        }
     }
 
     private void NoteHit()

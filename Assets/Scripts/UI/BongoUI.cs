@@ -24,6 +24,7 @@ public class BongoUI : MonoBehaviour
 
     // Text
     [SerializeField] TextMeshProUGUI startText;
+    [SerializeField] TextMeshProUGUI pauseText; 
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI multiText;
     [SerializeField] TextMeshProUGUI redAccuracyText;
@@ -45,6 +46,7 @@ public class BongoUI : MonoBehaviour
 
         // Set text to nothing
         redAccuracyText.text = blueAccuracyText.text = greenAccuracyText.text = orangeAccuracyText.text = "";
+        pauseText.text = "";
     }
 
     void Update()
@@ -164,6 +166,12 @@ public class BongoUI : MonoBehaviour
         if (val == 1) startText.text = "Press Space to Start.";
         else if (val == 2) startText.text = "Press Space to Continue.";
         else startText.text = "";
+    }
+
+    public void SetPauseText(bool val)
+    {
+        if (val) pauseText.text = "ESC to Pause";
+        else pauseText.text = "";
     }
 
     public void ResetAccuracyText()
