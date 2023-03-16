@@ -170,8 +170,14 @@ public class BongoUI : MonoBehaviour
 
     public void SetPauseText(bool val)
     {
-        if (val) pauseText.text = "ESC to Pause";
-        else pauseText.text = "";
+        if (val)
+        {
+            pauseText.text = "ESC to Pause";
+        } 
+        else
+        {
+            pauseText.text = "";
+        }
     }
 
     public void ResetAccuracyText()

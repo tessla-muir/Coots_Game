@@ -11,7 +11,7 @@ public class BeatScroller : MonoBehaviour
     private Vector3 ogPosition;
 
 
-    public void Setup(Transform newArrows, int tempo)
+    public void Setup(int tempo)
     {
         this.tempo = tempo;
         beatTempo = 60f / tempo;

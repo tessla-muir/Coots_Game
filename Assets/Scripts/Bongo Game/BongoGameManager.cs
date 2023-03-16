@@ -39,8 +39,6 @@ public class BongoGameManager : MonoBehaviour
 
     // Difficulty
     int difficulty = 0;
-    // int[] singleArrowChance = {100, 0, 0}; // easy, medium, hard
-    // int[] doubleArrowChance = {0, 100, 0};
     int[] singleArrowChance = {80, 80, 75}; // easy, medium, hard
     int[] doubleArrowChance = {2, 10, 17};
     // noArrowChance = {12, 10, 8}
@@ -65,8 +63,6 @@ public class BongoGameManager : MonoBehaviour
         bongoUI = GameObject.FindObjectOfType<BongoUI>();
         playerUI = GameObject.FindObjectOfType<PlayerUI>();
         noteTracker = GameObject.FindObjectOfType<NoteTracker>();
-
-        PlaceArrows();
     }
 
     void Update()
@@ -128,9 +124,10 @@ public class BongoGameManager : MonoBehaviour
 
         // Determine arrows needed
         float length = music.clip.length;
-        float tempo = bs.GetTempo();
+        float rate = 108.29f; // How far arrow holder moves in one second
+        float arrowsNeeded = rate * length / 80f;
 
-        for (int i = 0; i < length * tempo / (2.1 * 60f); i++)
+        for (int i = 0; i < (int) arrowsNeeded - 3; i++)
         {
             int choice = Random.Range(1, 101);
 
@@ -368,6 +365,7 @@ public class BongoGameManager : MonoBehaviour
 
         // Arrow reset -- Order matters: Needs after startPlaying reset
         bs.ResetArrows();
+        bs.SetCanMove(false);
 
         // Update UI
         bongoUI.UpdateMulti(currentMulti);
@@ -375,6 +373,7 @@ public class BongoGameManager : MonoBehaviour
         bongoUI.SetCatJam(false, false);
         bongoUI.ResetAccuracyText();
         bongoUI.UpdateStartText(1);
+        bongoUI.SetPauseText(false);
 
         // Reset Indicies
         noteTracker.SetLeftIndex(0);

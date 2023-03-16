@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     BeatScroller bs;
     AudioSource[] music;
     List<Transform> arrows = new List<Transform>();
-    int[] tempos = {123, 172, 83};
+    int[] tempos = {123, 172, 83, 113};
+    int[] arrowsToSpawn = {289, 289, 289, 289};
     int currentLevel = 0;
     int difficulty = 0;
 
@@ -31,21 +32,16 @@ public class GameManager : MonoBehaviour
         // Get music
         bs = GameObject.FindObjectOfType<BeatScroller>();
         music = GameObject.Find("Music Holder").GetComponents<AudioSource>();
-
-        // Get arrows
-        foreach (Transform child in GameObject.Find("Arrow Holder").transform)
-        {
-            arrows.Add(child.transform);
-        }
     }
 
     public void StartBongoGame(int level) 
     {
-        // Start values
+        // Set active
         BongoGameManager.instance.gameObject.SetActive(true);
         bongoUI.SetActive(true);
 
-        bs.Setup(arrows[level], tempos[level]);
+        // Start values
+        bs.Setup(tempos[level]);
 
         // Update on level
         currentLevel = level;
