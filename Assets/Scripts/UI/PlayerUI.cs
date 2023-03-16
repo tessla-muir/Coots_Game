@@ -67,9 +67,19 @@ public class PlayerUI : MonoBehaviour
         missedText.text = "Missed: " + BongoGameManager.instance.missedCount;
 
         // Decide & Update Outcome
-        if (BongoGameManager.instance.missedCount/BongoGameManager.instance.GetTotalNotes() < .05)
+        if (BongoGameManager.instance.missedCount/(1.0 * BongoGameManager.instance.GetTotalNotes()) == 0)
         {             
-            outcomeText.text = "RESULT";
+            outcomeText.text = "PERFECT";
+            enemyImage.sprite = bongoUI.enemyOnHit;
+        }
+        else if (BongoGameManager.instance.missedCount/(1.0 * BongoGameManager.instance.GetTotalNotes()) <= 0.02)
+        {
+            outcomeText.text = "GREAT";
+            enemyImage.sprite = bongoUI.enemyOnHit;
+        }
+        else if (BongoGameManager.instance.missedCount/(1.0 * BongoGameManager.instance.GetTotalNotes()) <= 0.05)
+        {
+            outcomeText.text = "GOOD";
             enemyImage.sprite = bongoUI.enemyOnHit;
         }
         else

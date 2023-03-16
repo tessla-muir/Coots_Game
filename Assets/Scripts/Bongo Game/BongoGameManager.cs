@@ -39,18 +39,21 @@ public class BongoGameManager : MonoBehaviour
 
     // Difficulty
     int difficulty = 0;
-    int[] singleArrowChance = {80, 80, 75}; // easy, medium, hard
-    int[] doubleArrowChance = {2, 10, 17};
-    // noArrowChance = {12, 10, 8}
+    int[] singleArrowChance = { 75, 80, 65 }; // easy, medium, hard
+    int[] doubleArrowChance = { 5, 12, 30 };
+    // noArrowChance = {20, 8, 5}
 
     // Mutliplier
     int currentMulti = 1;
     int multiTracker;
-    int[] multiThresholds = { 4, 8, 16 };
+    int[] multiThresholds = { 4, 8, 16, 32 };
+    [SerializeField] AudioSource multiCheer;
+    bool canPlayBoo = true;
 
     // UI
     BongoUI bongoUI;
     PlayerUI playerUI;
+
 
 
     void Awake()
@@ -104,6 +107,7 @@ public class BongoGameManager : MonoBehaviour
         {
             bongoUI.UpdateStartText(10);
             Resume();
+            slider.SetHasAdjustedVolume(false);
         }
 
         // Shows end screen when done
@@ -127,7 +131,7 @@ public class BongoGameManager : MonoBehaviour
         float rate = 108.29f; // How far arrow holder moves in one second
         float arrowsNeeded = rate * length / 80f;
 
-        for (int i = 0; i < (int) arrowsNeeded - 3; i++)
+        for (int i = 0; i < (int)arrowsNeeded - 3; i++)
         {
             int choice = Random.Range(1, 101);
 
@@ -159,9 +163,9 @@ public class BongoGameManager : MonoBehaviour
         // Make sure choice isn't the restricted value
         while (arrowChoice == restriction)
         {
-           arrowChoice = Random.Range(1, 5); 
+            arrowChoice = Random.Range(1, 5);
         }
-        
+
         // Make arrow based on choice
         switch (arrowChoice)
         {
@@ -214,7 +218,7 @@ public class BongoGameManager : MonoBehaviour
         totalPauseTime += endPauseTime - startPauseTime;
     }
 
-    private void OnApplicationFocus(bool focusStatus) 
+    private void OnApplicationFocus(bool focusStatus)
     {
         if (!focusStatus && startedSong)
         {
@@ -241,14 +245,55 @@ public class BongoGameManager : MonoBehaviour
                 bongoUI.UpdateMulti(currentMulti);
 
                 // Update BongoCat
-                if (currentMulti == 2) bongoUI.SetCatJam(true, false);
-                if (currentMulti == 3) bongoUI.SetCatJam(true, true);
+                if (currentMulti == 3) bongoUI.SetCatJam(true, false);
+                if (currentMulti == 4) bongoUI.SetCatJam(true, true);
+
+                // Play cheers
+                PlayCheer(currentMulti);
             }
         }
 
         // Adjust UI
         bongoUI.UpdateScore(currentScore);
         bongoUI.EnemyHit();
+
+        // Play Cheer
+        Debug.Log(multiTracker);
+        PlayCheer();
+    }
+
+    public void PlayCheer(int multi = 0)
+    {
+        AudioSource multiCheer = AudioManager.instance.GetRandomCheer();
+
+        if (multi == 5)
+        {
+            float volume = multiCheer.volume;
+            multiCheer.volume += .10f;
+            multiCheer.Play();
+            multiCheer.volume = volume;
+        }
+        else if (multi > 2)
+        {
+            multiCheer.Play();
+        }
+    }
+
+    public void PlayBoo()
+    {
+        AudioSource booSound = AudioManager.instance.GetRandomBoo();
+        if (canPlayBoo)
+        {
+            canPlayBoo = false;
+            booSound.Play();
+            StartCoroutine(BooWait());
+        } 
+    }
+
+    IEnumerator BooWait()
+    {
+        yield return new WaitForSeconds(8f);
+        canPlayBoo = true;
     }
 
     public void NoteNormalHit(GameObject button)
@@ -288,6 +333,9 @@ public class BongoGameManager : MonoBehaviour
         bongoUI.CootsMiss();
         bongoUI.SetCatJam(false, false);
         bongoUI.UpdateAccuracyText(button, 0);
+
+        // Play Boo
+        PlayBoo();
     }
 
     public void NoteOffbeat(GameObject button)

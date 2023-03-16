@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SliderScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
+public class SliderScript : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField] GameObject holder;
     [SerializeField] int startValue;
@@ -31,7 +31,12 @@ public class SliderScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
         slider.value = startValue;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void SetHasAdjustedVolume(bool val)
+    {
+        hasAdjustedVolume = val;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
     {
         if (isMusic)
         {
@@ -44,25 +49,20 @@ public class SliderScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandle
         }
         else
         {
-            _audio[0].Play();
+            _audio[3].Play();
         }
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void OnEndDrag(PointerEventData eventData)
     {
         if (isMusic)
         {
-            _audio[GameManager.instance.GetCurrentLevel()].Pause();
+            _audio[GameManager.instance.GetCurrentLevel()].Stop();
             _audio[GameManager.instance.GetCurrentLevel()].time = resumeTime;
         }
         else
         {
-            _audio[0].Stop();
+            _audio[3].Stop();
         }
-    }
-
-    public void SetHasAdjustedVolume(bool val)
-    {
-        hasAdjustedVolume = val;
     }
 }
